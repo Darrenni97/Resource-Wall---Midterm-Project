@@ -9,12 +9,20 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+const cookieSession = require('cookie-session')
 
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
 db.connect();
+
+// This encrypts the cookies
+app.use(cookieSession({
+  name: 'user_id',
+  keys: ["boop"],
+  maxAge: 24 * 60 * 60 * 1000
+}));
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -65,6 +73,43 @@ app.get('/profile', (req, res) => {
 app.get('/create', (req, res) => {
   res.render('create');
 });
+
+
+const getUserWithEmail = function(email) {
+  return db.query(`
+  SELECT users.*
+  FROM users
+  WHERE email = $1
+  `, [`${email}`])
+    .then(res => res.rows[0])
+    .catch(err => console.error('query error: user = null', err.stack));
+}
+
+const login =  function(email, password) {
+  return getUserWithEmail(email)
+  .then(user => {
+    if (password === user.password) {
+      return user;
+    }
+    return null;
+  });
+}
+
+app.post('/login', (req, res) => {
+  const {email, password} = req.body;
+  login(email, password)
+    .then(user => {
+      console.log(user);
+      if (!user) {
+        res.send({error: "error"});
+        return;
+      }
+      req.session['user_id'] = user.id;
+      res.redirect('/');
+    })
+    .catch(e => res.send(e));
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
