@@ -6,7 +6,7 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   profile_picture VARCHAR(255) NOT NULL DEFAULT 'https://static.thenounproject.com/png/538846-200.png',
-  bio TEXT,
+  bio TEXT
 );
 
 DROP TABLE IF EXISTS pins CASCADE;
