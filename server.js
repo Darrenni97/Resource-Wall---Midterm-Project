@@ -50,6 +50,22 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+app.get('/create', (req, res) => {
+  res.render('create');
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
