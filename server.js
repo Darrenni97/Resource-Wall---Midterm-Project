@@ -55,7 +55,9 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  // if the user has a user_id coookie, look up the user and put their user data in some variable
+  const current_user = undefined;   // TODO: not this
+  res.render("index", {current_user});
 });
 
 app.get('/login', (req, res) => {
@@ -85,7 +87,7 @@ const getUserWithEmail = function(email) {
     .catch(err => console.error('query error: user = null', err.stack));
 }
 
-const login =  function(email, password) {
+const login = function(email, password) {
   return getUserWithEmail(email)
   .then(user => {
     if (password === user.password) {
@@ -104,12 +106,21 @@ app.post('/login', (req, res) => {
         res.send({error: "error"});
         return;
       }
-      req.session['user_id'] = user.id;
+      req.session.user_id = user.id;
+      console.log(user.id)
       res.redirect('/');
     })
     .catch(e => res.send(e));
 });
 
+app.get('/whoami', (req, res) => {
+
+})
+
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('/');
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
