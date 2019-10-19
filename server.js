@@ -122,6 +122,18 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+//Submits pins data from form into database
+app.post('/create', (req, res) => {
+  const values = [req.session.user_id, req.body.title, req.body.description, req.body.resource, req.body.photo, req.body.tags];
+  return db.query(`
+  INSERT INTO pins(creator_id, title, description, resource_url, photo_url, tag)
+  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;
+  `, values)
+  .then(res => res.rows[0])
+  .then(res.redirect('/'))
+  .catch(err => console.log(err.stack));
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
