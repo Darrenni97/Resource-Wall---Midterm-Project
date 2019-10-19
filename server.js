@@ -51,13 +51,33 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
+// We need this to fetch the user from the database using the COOKIE ID!!!!
+async function setCurrentUser(req, res) {
+  const user_id = req.session["user_id"];
+    try {
+      const query = await db.query(`
+      SELECT users.*
+      FROM users
+      WHERE id = $1
+      `,
+      [`${user_id}`]
+    )
+    const user = query.rows[0];
+    return user;
+
+    }
+    catch(e) {
+      console.log('error in setCurrentUser', e);
+    }
+}
+
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
-  // if the user has a user_id coookie, look up the user and put their user data in some variable
-  const current_user = undefined;   // TODO: not this
-  res.render("index", {current_user});
+app.get("/", async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+
+  res.render("index", { current_user });
 });
 
 app.get('/login', (req, res) => {
@@ -76,20 +96,20 @@ app.get('/create', (req, res) => {
   res.render('create');
 });
 
-
-const getUserWithEmail = function(email) {
+const findUserByEmail = (email) => {
   return db.query(`
   SELECT users.*
   FROM users
   WHERE email = $1
-  `, [`${email}`])
-    .then(res => res.rows[0])
-    .catch(err => console.error('query error: user = null', err.stack));
+  `,
+  [`${email}`])
+  .then(res => res.rows[0])
+  .catch(err => console.error('query error: user = null', err.stack));
 }
 
-const login = function(email, password) {
-  return getUserWithEmail(email)
-  .then(user => {
+const login = (email, password) => {
+  return findUserByEmail(email)
+  .then((user) => {
     if (password === user.password) {
       return user;
     }
@@ -101,21 +121,20 @@ app.post('/login', (req, res) => {
   const {email, password} = req.body;
   login(email, password)
     .then(user => {
-      console.log(user);
       if (!user) {
-        res.send({error: "error"});
+        res.send({error: "error: user not found"});
         return;
       }
-      req.session.user_id = user.id;
-      console.log(user.id)
+
+      req.session["user_id"] = user.id;
       res.redirect('/');
     })
     .catch(e => res.send(e));
 });
 
-app.get('/whoami', (req, res) => {
+// app.get('/whoami', (req, res) => {
 
-})
+// })
 
 app.post('/logout', (req, res) => {
   req.session = null;
