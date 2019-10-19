@@ -13,7 +13,22 @@
 
   <body>
       <header> <%include ./partials/header.ejs %></header>
-    <h1>New Pin</h1>
+    <h1>Create New Pin</h1>
+
+    <form id='create-pin' method='POST' action='/create'>
+      <textarea id='pin-title' name="title" placeholder="Title"></textarea>
+      <textarea id='pin-description' name="description" placeholder="Description"></textarea>
+      <textarea id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
+      <textarea id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
+      <input type = "text" list = "pin-tags" name="tags" placeholder="Tags">
+      <datalist id = "pin-tags">
+        <option value = "Tag1">
+        <option value = "Tag2">
+        <option value = "Tag3">
+        <option value = "Tag4">
+      </datalist>
+      <input type="submit" value="Submit">
+    </form>
 
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
