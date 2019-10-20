@@ -74,9 +74,41 @@ async function setCurrentUser(req, res) {
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+
+// Loading pins to the home page
+const loadPins = function() {
+  return db.query(`
+  SELECT title, description, resource_url, photo_url
+  FROM pins
+  `)
+  .then(res => {
+    console.log(res.rows)
+    console.log('Success: ', renderPins(res.rows))
+  })
+  // .then(res => res.rows[0])
+  .catch(err => console.error('query error: user = null', err.stack));
+};
+// Loading pins to the home page
+const renderPins = function(pins) {
+  $('#wrapper').empty();
+  for (let i = 0; i < pins.length; i++) {
+    let newPin = createPinElement(pins[i]);
+    $('#wrapper').prepend(newPin);
+  }
+};
+// Loading pins to the home page
+const createPinElement = function(pinObject) {
+  return $('#wrapper').append(
+    `<div class="box">
+      <img src="${pinObject.photo_url}"/>
+      <h4>${pinObject.title}</h4>
+      <p>${pinObject.description}</p>
+    </div>`);
+};
+
 app.get("/", async function (req, res) {
   const current_user = await setCurrentUser(req, res);
-
+  loadPins();
   res.render("index", { current_user });
 });
 
