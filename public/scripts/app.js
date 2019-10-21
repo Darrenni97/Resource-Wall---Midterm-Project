@@ -6,6 +6,13 @@ const getPins = function() {
     });
 };
 
+const getLikedPins = function() {
+  $.ajax({method: 'GET', url: '/api/liked-pins/profile', dataType: 'JSON'})
+    .then(res => {
+      renderLikedPins(res.pins)
+    });
+};
+
 // Render pins to the home page
 const createPinElement = function(pinObject) {
   return $('#wrapper').prepend(
@@ -25,4 +32,16 @@ const renderPins = function(pins) {
   }
 };
 
-getPins()
+const renderLikedPins = function(pins) {
+  for (let i = 0; i < pins.length; i++) {
+    let newPin = createPinElement(pins[i]);
+    $('#wrapper').prepend(newPin);
+  }
+};
+
+if (window.location.pathname === "/") {
+  getPins()
+}
+if (window.location.pathname === "/profile"){
+  getLikedPins()
+}
