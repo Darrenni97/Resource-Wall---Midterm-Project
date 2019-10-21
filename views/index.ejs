@@ -10,61 +10,95 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/loadpins.css" type="text/css"/>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script src="https://use.fontawesome.com/dcdfd5f0d7.js"></script>
   </head>
 
   <body>
       <header> <%include ./partials/header.ejs %></header>
-    <h1>Hello
+    <!-- <h1>Hello
       <% if (current_user) { %>
         <%= current_user.username %>
       <% } else { %>
         Stranger
       <% } %>
-    </h1>
+    </h1> -->
 
       <!-- Pin Grid-->
 
     <div id="wrapper">
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
+        <div id="image-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
+          <i id="push-pin" class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
+        <h4>Coloring 101</h4>
+        <p>A guide on how to color within the lines</p>
+      </div>
+      <div class="box">
+        <div id="image-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoDbxJdyDQqmFwWdAhY08hHHXqwQTBppjU_dUwBX6BulfMTDp5"/>
+          <i id="push-pin" class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
         <h4>Title</h4>
         <p>Description</p>
       </div>
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoDbxJdyDQqmFwWdAhY08hHHXqwQTBppjU_dUwBX6BulfMTDp5"/>
+        <div id="image-box">
+          <img src="http://croatia.hr/sites/default/files/styles/image_full_width/public/2017-08/02_01_slide_nature.jpg?itok=ItAHmLlp"/>
+          <i id="push-pin" class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
         <h4>Title</h4>
         <p>Description</p>
       </div>
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
-        <h4>Title</h4>
-        <p>Description</p>
-      </div>
-      <div class="box">4
-        <h4>Title</h4>
-        <p>Description</p>
-      </div>
-      <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
-        <h4>Title</h4>
-        <p>Description</p>
-      </div>
-      <div class="box">6
+        <div id="image-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmqaMmh08RSy8U_lOfFsQ7aCOm6yZWFhidnLSbLRVPefkTG-nLOw"/>
+          <i id="push-pin" class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
         <h4>Title</h4>
         <p>Description</p>
       </div>
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
+        <div id="image-box">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmqaMmh08RSy8U_lOfFsQ7aCOm6yZWFhidnLSbLRVPefkTG-nLOw"/>
+          <i id="push-pin" class="fa fa-thumb-tack" aria-hidden="true"></i>
+        </div>
+        <h4>Title</h4>
+        <p>Description</p>
       </div>
-      <div class="box">8</div>
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCWXsFJK2xfshgFv5eKus8yg1NrKzNDJaUHoe4hHmYoQvWUw5K"/>
+        <h4>Title</h4>
+        <p>Description</p>
       </div>
-      <div class="box">10</div>
       <div class="box">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCWXsFJK2xfshgFv5eKus8yg1NrKzNDJaUHoe4hHmYoQvWUw5K"/>
+        <h4>Title</h4>
+        <p>Description</p>
       </div>
-      <div class="box">12</div>
+      <div class="box">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5VCk99bH7R74ieCdVrImHIC50ZOsix4AEkUHOrxxc9N9EF0tBxA"/>
+        <h4>Title</h4>
+        <p>Description</p>
+      </div>
+      <div class="box">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5VCk99bH7R74ieCdVrImHIC50ZOsix4AEkUHOrxxc9N9EF0tBxA"/>
+        <h4>Title</h4>
+        <p>Description</p>
+      </div>
+      <div class="box">
+        <h4>Title</h4>
+        <p>Description</p>
+      </div>
+      <div class="box">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkJIQdQW5ccD0kx4TIavGPOmH-VxCkVGgJdPTpZ8mYl6jI1bPN7g"/>
+        <h4>Title</h4>
+        <p>Description</p>
+      </div>
+      <div class="box">
+        <h4>Title</h4>
+        <p>Description</p>
+      </div>
     </div>
 
     <!-- Scripts -->
