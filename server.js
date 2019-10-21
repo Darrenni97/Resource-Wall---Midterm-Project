@@ -85,7 +85,8 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  const user = {user: req.session.user_id}
+  res.render('register', user);
 });
 
 app.get('/profile', (req, res) => {
@@ -150,6 +151,17 @@ app.post('/create', (req, res) => {
   `, values)
   .then(res => res.rows[0])
   .then(res.redirect('/'))
+  .catch(err => console.log(err.stack));
+});
+
+app.post('/register', (req, res) => {
+  const values = [req.body.username, req.body.email, req.body.password];
+  return db.query(`
+  INSERT INTO users(username, email, password)
+  VALUES ($1, $2, $3) RETURNING *;
+  `, values)
+  .then(res => res.rows[0])
+  .then(res.redirect('/login'))
   .catch(err => console.log(err.stack));
 });
 
