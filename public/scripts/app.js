@@ -11,13 +11,6 @@ $(() => {
 
 // Loading pins to the home page
 
-// const loadTweets = function() {
-//   $.ajax({method: 'GET', url: '/tweets', dataType: 'JSON'})
-//     .then(res => {
-//       console.log('Success: ', renderTweets(res));
-//     });
-// };
-
 const loadPins = function() {
   return db.query(`
   SELECT title, description, resource_url, photo_url
