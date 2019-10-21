@@ -80,20 +80,24 @@ app.get("/", async function (req, res) {
   res.render("index", { current_user });
 });
 
-app.get('/login', (req, res) => {
-  res.render('login');
+app.get('/login', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('login', { current_user });
 });
 
-app.get('/register', (req, res) => {
-  res.render('register');
+app.get('/register', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('register', { current_user });
 });
 
-app.get('/profile', (req, res) => {
-  res.render('profile');
+app.get('/profile', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('profile', { current_user });
 });
 
-app.get('/create', (req, res) => {
-  res.render('create');
+app.get('/create', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('create', { current_user });
 });
 
 const findUserByEmail = (email) => {
