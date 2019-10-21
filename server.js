@@ -158,15 +158,25 @@ app.post('/create', (req, res) => {
   .catch(err => console.log(err.stack));
 });
 
-app.post('/register', (req, res) => {
-  const values = [req.body.username, req.body.email, req.body.password];
-  return db.query(`
-  INSERT INTO users(username, email, password)
-  VALUES ($1, $2, $3) RETURNING *;
-  `, values)
-  .then(res => res.rows[0])
-  .then(res.redirect('/login'))
-  .catch(err => console.log(err.stack));
+//Submits register information to database
+app.post('/register', async (req, res) => {
+  const values = [req.body.username, req.body.email, bcrypt.hashSync(req.body.password, 10)];
+  if (req.body.username === '' || req.body.username ===  '' || req.body.password === '') { //checks for empty fields
+    res.status(400);
+    res.send('400: Error');
+  }
+  if (await findUserByEmail(req.body.email)) { //checks database is email already exists
+    console.log(await findUserByEmail(req.body.email))
+    res.status(400).end();
+    res.send('400: Email Taken');
+  }
+    return db.query(`
+    INSERT INTO users(username, email, password)
+    VALUES ($1, $2, $3) RETURNING *;
+    `, values)
+    .then(res => res.rows)
+    .then(res.redirect('/login'))
+    .catch(err => console.log(err.stack));
 });
 
 app.listen(PORT, () => {
