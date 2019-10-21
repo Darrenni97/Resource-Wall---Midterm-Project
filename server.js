@@ -158,6 +158,17 @@ app.post('/create', (req, res) => {
   .catch(err => console.log(err.stack));
 });
 
+app.post('/register', (req, res) => {
+  const values = [req.body.username, req.body.email, req.body.password];
+  return db.query(`
+  INSERT INTO users(username, email, password)
+  VALUES ($1, $2, $3) RETURNING *;
+  `, values)
+  .then(res => res.rows[0])
+  .then(res.redirect('/login'))
+  .catch(err => console.log(err.stack));
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
