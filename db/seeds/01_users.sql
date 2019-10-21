@@ -24,9 +24,9 @@ VALUES
 
 INSERT INTO pins (creator_id, title, description, resource_url, photo_url, tag)
 VALUES
-(1, 'Fun Fun', 'Learing how to code.', 'https://www.youtube.com/watch?v=G2KV3YlvDFQ', 'https://i.ytimg.com/vi/iGBWyhiqBsk/maxresdefault.jpg', 'coding'
+(1, 'Fun Fun', 'Learing how to code.', 'https://www.youtube.com/watch?v=G2KV3YlvDFQ', 'https://i.ytimg.com/vi/iGBWyhiqBsk/maxresdefault.jpg', 'Technology'
 ),
-(2, 'Coding 101', 'Article on coding', 'https://www.bitdegree.org/tutorials/what-is-coding/', 'https://www.bitdegree.org/tutorials/wp-content/uploads/2018/08/what-is-coding.jpg', 'coding');
+(2, 'Coding 101', 'Article on coding', 'https://www.bitdegree.org/tutorials/what-is-coding/', 'https://www.bitdegree.org/tutorials/wp-content/uploads/2018/08/what-is-coding.jpg', 'Technology');
 
 INSERT INTO comments (user_id, pin_id, body)
 VALUES

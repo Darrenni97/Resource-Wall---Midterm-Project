@@ -16,22 +16,54 @@
     <h1>Create New Pin</h1>
 
     <form id='create-pin' method='POST' action='/create'>
-      <label for="pin-title">Username</label>
+      <label for="pin-title">Title</label>
+      <br>
+
       <textarea id='pin-title' name="title" placeholder="Title"></textarea>
-      <label for="pin-description">Username</label>
+      <br>
+
+      <label for="pin-description">Description</label>
+      <br>
+
       <textarea id='pin-description' name="description" placeholder="Description"></textarea>
-      <label for="pin-resource_url">Username</label>
+      <br>
+
+      <label for="pin-resource_url">URL for Resource</label>
+      <br>
+
       <textarea id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
-      <label for="pin-photo_url">Username</label>
+      <br>
+
+      <label for="pin-photo_url">URL for Photo</label>
+      <br>
+
       <textarea id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
-      <input type = "text" list = "pin-tags" name="tags" placeholder="Tags">
+      <br>
+
+      <label for="pin-tags">Tag your Resource</label>
+      <br>
+
+      <!-- <input type = "text" list = "pin-tags" name="tags" placeholder="Tags">
       <datalist id = "pin-tags">
-        <option value = "Tag1">
-        <option value = "Tag2">
-        <option value = "Tag3">
-        <option value = "Tag4">
-      </datalist>
-      <input type="submit" value="Submit">
+        <option value = "Technology">
+        <option value = "Sports">
+        <option value = "Foods">
+        <option value = "Arts">
+        <option value = "Miscellaneous">
+        </datalist> -->
+        <select id = "pins" name ="tags">
+            <option value = "Technology">Technology</option>
+                <option value = "Sports">Sports</option>
+                <option value = "Foods">Foods</option>
+                <option value = "Arts">Arts</option>
+                <option value = "Miscellaneous">Miscellaneous</option>
+          </select>
+          <br>
+
+          <br>
+
+
+        <input type="submit" value="Submit">
     </form>
 
     <!-- Scripts -->

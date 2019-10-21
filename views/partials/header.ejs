@@ -25,7 +25,15 @@
         <% } %>
       </ul>
       <form class="form-inline my-2 my-lg-0" Method='POST' action='search'>
-        <input class="form-control mr-sm-2" type="search" placeholder="search" aria-label="Search">
+          <select id = "pins" name ="tags">
+              <option value = "Technology">Technology</option>
+                  <option value = "Sports">Sports</option>
+                  <option value = "Foods">Foods</option>
+                  <option value = "Arts">Arts</option>
+                  <option value = "Miscellaneous">Miscellaneous</option>
+            </select>
+            <br>
+        <!-- <input class="form-control mr-sm-2" type="search" placeholder="search" aria-label="Search"> -->
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
 
