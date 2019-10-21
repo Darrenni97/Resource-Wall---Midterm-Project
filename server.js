@@ -10,6 +10,7 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session')
+const bcrypt = require('bcrypt');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -114,7 +115,7 @@ const findUserByEmail = (email) => {
 const login = (email, password) => {
   return findUserByEmail(email)
   .then((user) => {
-    if (password === user.password) {
+    if (bcrypt.compareSync(password, user.password)) {
       return user;
     }
     return null;
