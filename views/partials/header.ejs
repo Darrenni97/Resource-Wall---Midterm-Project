@@ -8,16 +8,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item">
-          <a class="nav-link" href="/profile">Profile</a>
-        </li>
+        <% if(current_user === undefined){ %>
         <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
-
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile"> Welcome back <%= current_user.username %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create">+ New Pin</a>
+          </li>
+        <% } %>
       </ul>
       <form class="form-inline my-2 my-lg-0" Method='POST' action='search'>
         <input class="form-control mr-sm-2" type="search" placeholder="search" aria-label="Search">
@@ -27,6 +32,10 @@
       <form class="form-inline my-2 my-lg-0" Method='POST' action='/logout'>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >LOGOUT</button>
     </form>
+
     </div>
+
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
   </nav>
 </header>
