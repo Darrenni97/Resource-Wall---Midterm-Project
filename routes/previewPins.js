@@ -4,26 +4,15 @@ const router  = express.Router();
 module.exports = (db) => {
   const generateViewPinQuery = function(id) {
     return db.query(`
-    SELECT pins.*, comments.*, likes.*, ratings.*
+    SELECT pins.*, comments.*, count(likes.*), ratings.*
     FROM pins
     JOIN comments ON pins.id = comments.pin_id
     JOIN likes ON pins.id = likes.pin_id
     JOIN ratings ON pins.id = ratings.pin_id
     WHERE pins.id = ${id}
+    GROUP BY likes.pin_id, pins.id, comments.id, ratings.id
     `)
   };
-
-  const amountOfPinLikesQuery = (id) => {
-    return db.query(`
-    SELECT count(*)
-    FROM likes
-    JOIN comments ON pins.id = comments.pin_id
-    JOIN likes ON pins.id = likes.pin_id
-    JOIN ratings ON pins.id = ratings.pin_id
-    WHERE pins.id = ${id}
-    `)
-  };
-
 
   router.get("/:id", (req, res) => {
     generateViewPinQuery(req.params.id)

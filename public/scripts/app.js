@@ -61,6 +61,7 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-comment').textContent = `${res.pins[0].body}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
+      document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
     });
 })
 
