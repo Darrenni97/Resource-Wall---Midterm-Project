@@ -210,7 +210,7 @@ app.post('/update', async (req, res) => {
     console.log(await findUserByEmail(req.body.email))
     res.status(400).end();
     res.send('400: Email Taken');
-  }
+}
   let queryString = `
   UPDATE users
   `;

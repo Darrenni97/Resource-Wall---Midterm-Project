@@ -4,8 +4,10 @@ const router  = express.Router();
 module.exports = (db) => {
   const loadPins = function() {
     return db.query(`
-    SELECT *
+    SELECT pins.*, count(likes.*)
     FROM pins
+    LEFT JOIN likes ON likes.pin_id = pins.id
+    GROUP BY pins.id, likes.id
     `)
   };
   router.get("/", (req, res) => {
