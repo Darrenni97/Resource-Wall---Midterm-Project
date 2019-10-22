@@ -16,7 +16,7 @@ const getLikedPins = function() {
 // Render pins to the home page
 const createPinElement = function(pinObject) {
   return $('#wrapper').prepend(
-    `<div class='box' id="${pinObject.id}">
+    `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
         <a href='${pinObject.resource_url}'><img src="${pinObject.photo_url}"/></a>
         <img id="push-pin" src="https://i2.wp.com/freepngimages.com/wp-content/uploads/2014/04/DrawingPin1_Blue_2.png?fit=220%2C220"/>
@@ -53,11 +53,14 @@ if (window.location.pathname === "/profile"){
 
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
-  $.ajax({method: 'GET', url: '/api/preview-pins', dataType: 'JSON'})
-    .then(res => { console.log(res.pins)
-      document.getElementById('modal-title').textContent = 'Pin title'
-      document.getElementById('modal-body').textContent = 'Description'
-      document.getElementById('modal-comment').textContent = 'This is comments'
+  const id = $(this).attr('data-id')
+  $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
+    .then(res => {
+      console.log(res.pins[0])
+      document.getElementById('modal-title').textContent = `${res.pins[0].title}`
+      document.getElementById('modal-body').textContent = `${res.pins[0].description}`
+      document.getElementById('modal-comment').textContent = `${res.pins[0].body}`
+      document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
     });
 })
 

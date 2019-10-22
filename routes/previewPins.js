@@ -2,18 +2,31 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  const viewPin = function() {
+  const generateViewPinQuery = function(id) {
     return db.query(`
     SELECT pins.*, comments.*, likes.*, ratings.*
     FROM pins
     JOIN comments ON pins.id = comments.pin_id
     JOIN likes ON pins.id = likes.pin_id
     JOIN ratings ON pins.id = ratings.pin_id
-    WHERE pins.id = 1
-    `) //need to change based on post clicked on
+    WHERE pins.id = ${id}
+    `)
   };
-  router.get("/", (req, res) => {
-    viewPin()
+
+  const amountOfPinLikesQuery = (id) => {
+    return db.query(`
+    SELECT count(*)
+    FROM likes
+    JOIN comments ON pins.id = comments.pin_id
+    JOIN likes ON pins.id = likes.pin_id
+    JOIN ratings ON pins.id = ratings.pin_id
+    WHERE pins.id = ${id}
+    `)
+  };
+
+
+  router.get("/:id", (req, res) => {
+    generateViewPinQuery(req.params.id)
       .then(data => {
         const pins = data.rows;
         res.json({ pins });
