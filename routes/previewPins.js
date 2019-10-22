@@ -10,7 +10,7 @@ module.exports = (db) => {
     JOIN likes ON pins.id = likes.pin_id
     JOIN ratings ON pins.id = ratings.pin_id
     WHERE pins.id = 1
-    `)
+    `) //need to change based on post clicked on
   };
   router.get("/", (req, res) => {
     viewPin()

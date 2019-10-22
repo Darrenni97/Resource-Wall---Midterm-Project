@@ -23,6 +23,11 @@ const createPinElement = function(pinObject) {
       </div>
       <h4>${pinObject.title}</h4>
       <p>${pinObject.description}</p>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
+          <i class="fa fa-comments" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-primary"><i class="fa fa-heart" aria-hidden="true"></i></button>
+      <div>0 Likes</div>
     </div>`)
 }
 const renderPins = function(pins) {
@@ -49,7 +54,7 @@ if (window.location.pathname === "/profile"){
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   $.ajax({method: 'GET', url: '/api/preview-pins', dataType: 'JSON'})
-    .then(res => { console.log(res.pins);
+    .then(res => { console.log(res.pins)
       document.getElementById('modal-title').textContent = 'Pin title'
       document.getElementById('modal-body').textContent = 'Description'
       document.getElementById('modal-comment').textContent = 'This is comments'
