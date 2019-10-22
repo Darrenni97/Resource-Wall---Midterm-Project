@@ -46,10 +46,13 @@ if (window.location.pathname === "/profile"){
   getLikedPins()
 }
 
-
+//View pin popup
 $('#wrapper').on('click', '.box', function () {
-  document.getElementById('modal-title').textContent = 'Pin title'
-  document.getElementById('modal-body').textContent = 'Description'
-  document.getElementById('modal-comment').textContent = 'This is comments'
+  $.ajax({method: 'GET', url: '/api/preview-pins', dataType: 'JSON'})
+    .then(res => { console.log(res.pins);
+      document.getElementById('modal-title').textContent = 'Pin title'
+      document.getElementById('modal-body').textContent = 'Description'
+      document.getElementById('modal-comment').textContent = 'This is comments'
+    });
 })
 
