@@ -242,14 +242,12 @@ app.post('/update', async (req, res) => {
     }
   }
   queryString += `
-  WHERE user.id = ${cookie};
+  WHERE users.id = ${cookie};
   `;
-  console.log(queryParams)
-  console.log(queryString)
   return db.query(queryString, queryParams)
   .then(res => res.rows)
   .then(res.redirect('/profile'))
-  .catch(err => console.error('query error: user = null', err.stack));
+  .catch(err => console.error('query error: failed to update user', err.stack));
 });
 
 app.listen(PORT, () => {
