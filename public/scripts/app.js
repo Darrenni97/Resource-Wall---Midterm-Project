@@ -26,10 +26,12 @@ const createPinElement = function(pinObject) {
         <h4>${pinObject.title}</h4>
         <p>${pinObject.description}</p>
       </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
-          <i class="fa fa-comments" aria-hidden="true"></i>
-        </button>
-        <button class="btn btn-primary"><i class="fa fa-heart" aria-hidden="true"></i></button>
+      <div id="like-comment-button">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+          </button>
+        <form method="POST" action="/likes"><button class="btn btn-primary" type="submit" ><i class="fa fa-heart" aria-hidden="true"></i></button></form>
+      </div>
       <div>0 Likes</div>
     </div>`)
 };
@@ -69,7 +71,7 @@ if (window.location.pathname === "/profile"){
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
-  console.log(id)
+  // console.log(id)
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
       console.log(res.pins[0])
