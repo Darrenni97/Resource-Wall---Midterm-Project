@@ -26,7 +26,8 @@ INSERT INTO pins (creator_id, title, description, resource_url, photo_url, tag)
 VALUES
 (1, 'Fun Fun', 'Learing how to code.', 'https://www.youtube.com/watch?v=G2KV3YlvDFQ', 'https://i.ytimg.com/vi/iGBWyhiqBsk/maxresdefault.jpg', 'Technology'
 ),
-(2, 'Coding 101', 'Article on coding', 'https://www.bitdegree.org/tutorials/what-is-coding/', 'https://www.bitdegree.org/tutorials/wp-content/uploads/2018/08/what-is-coding.jpg', 'Technology');
+(2, 'Coding 101', 'Article on coding', 'https://www.bitdegree.org/tutorials/what-is-coding/', 'https://www.bitdegree.org/tutorials/wp-content/uploads/2018/08/what-is-coding.jpg', 'Technology'),
+(3, 'Colouring 101', 'A guide on how to color within the lines', 'https://www.thecoloringbook.club/color-colored-pencils/', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS', 'Arts');
 
 INSERT INTO comments (user_id, pin_id, body)
 VALUES
