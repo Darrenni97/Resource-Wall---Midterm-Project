@@ -1,0 +1,57 @@
+#modal-img {
+  width: 300px;
+  height: 200px;
+}
+
+#modal-button {
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  background-color: transparent;
+  color: #2587e2;
+  border: none;
+}
+
+#modal {
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+}
+
+#flex-body {
+  display: flex;
+  justify-content: space-between
+}
+
+#comment {
+  width: 450px;
+  position: relative;
+  margin-right: 5px;
+}
+
+#flex-comments {
+  display: flex;
+  flex-direction: column;
+}
+
+#submit-button {
+  right: 5px;
+  position: absolute;
+}
+
+#modal-comment {
+  margin-top: 10px;
+}
+
+.star__container {
+  width: 150px;
+  height: 40px
+}
+
+#image-desc {
+  text-align: center;
+  margin-left: 10px;
+}
+
+.close {
+  font-size: 50px;
+}
