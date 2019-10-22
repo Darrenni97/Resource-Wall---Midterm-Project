@@ -4,7 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
   const loadPins = function() {
     return db.query(`
-    SELECT title, description, resource_url, photo_url
+    SELECT *
     FROM pins
     `)
   };

@@ -183,6 +183,10 @@ app.post('/register', async (req, res) => {
     .catch(err => console.log(err.stack));
 });
 
+app.get('/pins/:id', (req, res) => {
+  console.log('hi')
+})
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
