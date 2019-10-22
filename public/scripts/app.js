@@ -1,8 +1,8 @@
 // Loading pins to the home page
-const getPins = function() {
+const getPins = function(query) {
   $.ajax({method: 'GET', url: '/api/pins', dataType: 'JSON'})
     .then(res => {
-      renderPins(res.pins)
+      renderPins(res.pins, query)
     });
 };
 
@@ -25,7 +25,11 @@ const createPinElement = function(pinObject) {
       <p>${pinObject.description}</p>
     </div>`)
 };
-const renderPins = function(pins) {
+const renderPins = function(pins, query) {
+  if (!!query === true) {
+    pins = pins.filter((pin) => pin.tag === query);
+  }
+
   for (let i = 0; i < pins.length; i++) {
     let newPin = createPinElement(pins[i]);
     $('#wrapper').prepend(newPin);
@@ -39,8 +43,16 @@ const renderLikedPins = function(pins) {
   }
 };
 
+const getUrlParameter = (name) => {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
 if (window.location.pathname === "/") {
-  getPins()
+  const query = getUrlParameter('tags');
+  getPins(query)
 }
 if (window.location.pathname === "/profile"){
   getLikedPins()
