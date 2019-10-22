@@ -105,6 +105,12 @@ app.get('/create', async function (req, res) {
   res.render('create', { current_user });
 });
 
+app.get('/update', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('update', { current_user });
+});
+
+
 const findUserByEmail = (email) => {
   return db.query(`
   SELECT users.*

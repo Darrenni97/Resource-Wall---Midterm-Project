@@ -19,3 +19,13 @@ body {
   }
 }
 
+#update-profile {
+  .profile-form-field {
+    #profile-label {
+      display: block;
+    }
+  }
+  .profile-submit {
+    margin-top: 30px;
+  }
+}
