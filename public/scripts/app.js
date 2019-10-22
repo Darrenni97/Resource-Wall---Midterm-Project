@@ -15,7 +15,6 @@ const getLikedPins = function() {
 
 // Render pins to the home page
 const createPinElement = function(pinObject) {
-  console.log(pinObject)
   return $('#wrapper').prepend(
     `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
