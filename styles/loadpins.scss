@@ -39,3 +39,8 @@ img {
   height: 60px;
   transform: rotate(10deg) translateY(-30px) translateX(10px);
 }
+
+.pin-description {
+  height: 85px;
+  overflow: scroll;
+}

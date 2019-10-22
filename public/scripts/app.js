@@ -22,8 +22,10 @@ const createPinElement = function(pinObject) {
         <a href='${pinObject.resource_url}' target="_blank" ><img src="${pinObject.photo_url}"/></a>
         <img id="push-pin" src="https://i2.wp.com/freepngimages.com/wp-content/uploads/2014/04/DrawingPin1_Blue_2.png?fit=220%2C220"/>
       </div>
-      <h4>${pinObject.title}</h4>
-      <p>${pinObject.description}</p>
+      <div class='pin-description'>
+        <h4>${pinObject.title}</h4>
+        <p>${pinObject.description}</p>
+      </div>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </button>
