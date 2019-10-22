@@ -16,41 +16,29 @@
     <h1>Create New Pin</h1>
 
     <form id='create-pin' method='POST' action='/create'>
-      <label for="pin-title">Title</label>
-      <br>
 
-      <textarea id='pin-title' name="title" placeholder="Title"></textarea>
-      <br>
+      <div class="pin-form-field">
+        <label class="pin-label" for="pin-title">Title</label>
+        <textarea id='pin-title' name="title" placeholder="Title"></textarea>
+      </div>
 
-      <label for="pin-description">Description</label>
-      <br>
+      <div class="pin-form-field">
+        <label class="pin-label" for="pin-description">Description</label>
+        <textarea id='pin-description' name="description" placeholder="Description"></textarea>
+      </div>
 
-      <textarea id='pin-description' name="description" placeholder="Description"></textarea>
-      <br>
+      <div class="pin-form-field">
+        <label class="pin-label" for="pin-resource_url">URL for Resource</label>
+        <textarea id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
+      </div>
 
-      <label for="pin-resource_url">URL for Resource</label>
-      <br>
+      <div class="pin-form-field">
+        <label class="pin-label" for="pin-photo_url">URL for Photo</label>
+        <textarea id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
+      </div>
 
-      <textarea id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
-      <br>
-
-      <label for="pin-photo_url">URL for Photo</label>
-      <br>
-
-      <textarea id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
-      <br>
-
-      <label for="pin-tags">Tag your Resource</label>
-      <br>
-
-      <!-- <input type = "text" list = "pin-tags" name="tags" placeholder="Tags">
-      <datalist id = "pin-tags">
-        <option value = "Technology">
-        <option value = "Sports">
-        <option value = "Foods">
-        <option value = "Arts">
-        <option value = "Miscellaneous">
-        </datalist> -->
+      <div class="pin-form-field">
+        <label class="pin-label" for="pin-tags">Tag your Resource</label>
         <select id = "pins" name ="tags">
             <option value = "Technology">Technology</option>
                 <option value = "Sports">Sports</option>
@@ -58,12 +46,10 @@
                 <option value = "Arts">Arts</option>
                 <option value = "Miscellaneous">Miscellaneous</option>
           </select>
-          <br>
-
-          <br>
+      </div>
 
 
-        <input type="submit" value="Submit">
+        <input class="pin-submit" type="submit" value="Submit">
     </form>
 
     <!-- Scripts -->

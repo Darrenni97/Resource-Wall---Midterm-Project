@@ -18,26 +18,28 @@
      <!-- User Header -->
     <header id="user-header">
       <div>
-        <img id="user-image" src="https://www.netfort.com/assets/user.png">
+        <img id="user-image" src='<%=current_user.profile_picture%>' style="border-radius: 50%">
       </div>
       <br>
       <div>
-        <h2 id="user-name"><b>Juliaj621</b></h2>
+        <h2 id="user-name"><b><%=current_user.username%></b></h2>
         <a class="link" href="/create">New Pin</a>
+        <br>
+        <a class="link" href="/update">Update Profile</a>
         <p></p>
       </div>
     </header>
           <!-- Pin Grid-->
 
     <div id="wrapper">
-      <div class="box">
+      <!-- <div class="box">
         <div id="image-box">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPKz5vgY9NtIcrZ8F9TA4xdji65iKyiLJQ0r9RbKi9QyW61WHS"/>
           <img id="push-pin" src="https://i2.wp.com/freepngimages.com/wp-content/uploads/2014/04/DrawingPin1_Blue_2.png?fit=220%2C220"/>
         </div>
         <h4>Coloring 101</h4>
         <p>A guide on how to color within the lines</p>
-      </div>
+      </div> -->
     </div>
 
     <!-- Scripts -->

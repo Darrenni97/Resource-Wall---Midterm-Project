@@ -107,6 +107,12 @@ app.get('/create', async function (req, res) {
   res.render('create', { current_user });
 });
 
+app.get('/update', async function (req, res) {
+  const current_user = await setCurrentUser(req, res);
+  res.render('update', { current_user });
+});
+
+
 const findUserByEmail = (email) => {
   return db.query(`
   SELECT users.*
@@ -194,10 +200,69 @@ app.post('/comments', (req, res) => {
   .then(res => res.rows[0])
   .then(res.redirect('/'))
   .catch(err => console.log(err.stack));
+})
+
+// Updates the user info
+app.post('/update', async (req, res) => {
+  let cookie = req.session.user_id;
+  const queryParams = [];
+  if (await findUserByEmail(req.body.email)) { //checks database is email already exists
+    console.log(await findUserByEmail(req.body.email))
+    res.status(400).end();
+    res.send('400: Email Taken');
+  }
+  let queryString = `
+  UPDATE users
+  `;
+  if (req.body.username) {
+    queryParams.push(`%${req.body.username}%`);
+    queryString += `SET username = $${queryParams.length}`;
+  }
+  if (req.body.email) {
+    if (queryParams.length > 0) {
+      queryParams.push(req.body.email);
+      queryString += `, email = $${queryParams.length}`;
+    } else {
+      queryParams.push(req.body.email);
+      queryString += `SET email = $${queryParams.length}`;
+    }
+  }
+  if (bcrypt.hashSync(req.body.password, 10)) {
+    if (queryParams.length > 0) {
+      queryParams.push(bcrypt.hashSync(req.body.password, 10));
+      queryString += `, password = $${queryParams.length}`;
+    } else {
+      queryParams.push(bcrypt.hashSync(req.body.password, 10));
+      queryString += `SET password = $${queryParams.length}`;
+    }
+  }
+  if (req.body.profile_picture) {
+    if (queryParams.length > 0) {
+      queryParams.push(req.body.profile_picture);
+      queryString += `, profile_picture = $${queryParams.length}`;
+    } else {
+      queryParams.push(req.body.profile_picture);
+      queryString += `SET profile_picture = $${queryParams.length}`;
+    }
+  }
+  if (req.body.bio) {
+    if (queryParams.length > 0) {
+      queryParams.push(req.body.bio);
+      queryString += `, bio = $${queryParams.length}`;
+    } else {
+      queryParams.push(req.body.bio);
+      queryString += `SET bio = $${queryParams.length}`;
+    }
+  }
+  queryString += `
+  WHERE users.id = ${cookie};
+  `;
+  return db.query(queryString, queryParams)
+  .then(res => res.rows)
+  .then(res.redirect('/profile'))
+  .catch(err => console.error('query error: failed to update user', err.stack));
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-

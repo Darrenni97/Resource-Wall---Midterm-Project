@@ -80,3 +80,25 @@ $rating-emoji: '⭐️' !default;
     }
   }
 }
+
+#create-pin {
+  .pin-form-field {
+    .pin-label {
+      display: block;
+    }
+  }
+  .pin-submit {
+    margin-top: 30px;
+  }
+}
+
+#update-profile {
+  .profile-form-field {
+    .profile-label {
+      display: block;
+    }
+  }
+  .profile-submit {
+    margin-top: 30px;
+  }
+}
