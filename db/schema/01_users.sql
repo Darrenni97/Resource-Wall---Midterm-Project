@@ -17,7 +17,7 @@ CREATE TABLE pins (
   title VARCHAR(255),
   description TEXT,
   resource_url VARCHAR(255),
-  photo_url VARCHAR(255),
+  photo_url TEXT,
   tag VARCHAR (15)
 );
 

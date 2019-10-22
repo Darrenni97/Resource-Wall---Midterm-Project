@@ -6,9 +6,9 @@ module.exports = (db) => {
     return db.query(`
     SELECT pins.*, comments.*, count(likes.*), ratings.*
     FROM pins
-    JOIN comments ON pins.id = comments.pin_id
-    JOIN likes ON pins.id = likes.pin_id
-    JOIN ratings ON pins.id = ratings.pin_id
+    LEFT JOIN comments ON pins.id = comments.pin_id
+    LEFT JOIN likes ON pins.id = likes.pin_id
+    LEFT JOIN ratings ON pins.id = ratings.pin_id
     WHERE pins.id = ${id}
     GROUP BY likes.pin_id, pins.id, comments.id, ratings.id
     `)
