@@ -68,6 +68,7 @@ $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
+      console.log(res.pins[0])
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       if (!res.pins[0].body) {
@@ -77,11 +78,16 @@ $('#wrapper').on('click', '.box', function () {
       }
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
+      document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
     });
 })
 
 //event for pressing like button
-$()
+$('#submit-button').on('click', function () {
+  const id = $(this).attr('data-id')
+  $.ajax('/like/:id')
+  .then(res => {
 
-
+  })
+});
 

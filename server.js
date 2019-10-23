@@ -191,16 +191,16 @@ app.post('/register', async (req, res) => {
     .catch(err => console.log(err.stack));
 });
 
-app.post('/comments', (req, res) => {
-  const values = [req.session.user_id, /*post id*/ ,req.body.text];
-  return db.query(`
-  INSERT INTO comments(user_id, pin_id, body)
-  VALUES ($1, $2, $3) RETURNING *;
-  `, values)
-  .then(res => res.rows[0])
-  .then(res.redirect('/'))
-  .catch(err => console.log(err.stack));
-})
+// app.post('/comments', (req, res) => {
+//   const values = [req.session.user_id, /*post id*/ ,req.body.text];
+//   return db.query(`
+//   INSERT INTO comments(user_id, pin_id, body)
+//   VALUES ($1, $2, $3) RETURNING *;
+//   `, values)
+//   .then(res => res.rows[0])
+//   .then(res.redirect('/'))
+//   .catch(err => console.log(err.stack));
+// })
 
 // Updates the user info
 app.post('/update', async (req, res) => {
