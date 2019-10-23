@@ -27,10 +27,10 @@ const createPinElement = function(pinObject) {
         <p>${pinObject.description}</p>
       </div>
       <div id="like-comment-button">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
+        <button type="button" class="btn btn-primary" class="comment-button" data-toggle="modal" data-target="#modal">
             <i class="fa fa-comments" aria-hidden="true"></i>
           </button>
-        <form method="POST" action="/likes"><button class="btn btn-primary" type="submit" ><i class="fa fa-heart" aria-hidden="true"></i></button></form>
+        <button class="btn btn-primary" class="like-button" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
       </div>
       <div>0 Likes</div>
     </div>`)
@@ -74,7 +74,7 @@ $('#wrapper').on('click', '.box', function () {
   // console.log(id)
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
-      console.log(res.pins[0])
+      // console.log(res.pins[0])
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       if (!res.pins[0].body) {
@@ -86,4 +86,10 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
     });
 })
+
+//Like and log to db when like button is clicked
+const likePin = async function(pinId) {
+  $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
+}
+
 

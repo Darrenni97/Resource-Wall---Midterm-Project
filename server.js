@@ -47,6 +47,7 @@ const widgetsRoutes = require("./routes/widgets");
 const pinsRoutes = require("./routes/pins");
 const likedPinsRoutes = require("./routes/liked-pins");
 const previewPinsRoutes = require("./routes/previewPins");
+const likeRoutes = require("./routes/likes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -55,6 +56,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/pins", pinsRoutes(db));
 app.use("/api/liked-pins", likedPinsRoutes(db));
 app.use("/api/preview-pins", previewPinsRoutes(db));
+app.use("/api/likes", likeRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -264,17 +266,17 @@ app.post('/update', async (req, res) => {
 });
 
 // Likes pins and send to database
-app.post('/likes', (req, res) => {
-  console.log("hello")
-  // const values = [req.session.user_id, PIN-ID];
-  // return db.query(`
-  // INSERT INTO likes(user_id, pin_id)
-  // VALUES ($1, $2) RETURNING *;
-  // `, values)
-  // .then(res => res.rows[0])
-  // .then(res.redirect('/'))
-  // .catch(err => console.log(err.stack));
-});
+// app.post('/likes', (req, res) => {
+//   console.log("hello")
+//   // const values = [req.session.user_id, PIN-ID];
+//   // return db.query(`
+//   // INSERT INTO likes(user_id, pin_id)
+//   // VALUES ($1, $2) RETURNING *;
+//   // `, values)
+//   // .then(res => res.rows[0])
+//   // .then(res.redirect('/'))
+//   // .catch(err => console.log(err.stack));
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
