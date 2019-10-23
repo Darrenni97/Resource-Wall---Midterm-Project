@@ -4,10 +4,10 @@ const router  = express.Router();
 module.exports = (db) => {
   const loadPins = function() {
     return db.query(`
-    SELECT pins.*, count(likes.*), round(AVG(ratings.rating), 2) as rating_average
+    SELECT pins.*, (SELECT count(likes) as num_likes
+    FROM likes WHERE likes.pin_id = pins.id), round(AVG(ratings.rating), 2) as rating_average
     FROM pins
-    LEFT JOIN likes ON likes.pin_id = pins.id
-    LEFT JOIN ratings ON pins.id = ratings.pin_id
+    LEFT JOIN ratings ON ratings.pin_id = pins.id
     GROUP BY pins.id
     `)
   };
