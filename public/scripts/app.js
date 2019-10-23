@@ -15,7 +15,6 @@ const getLikedPins = function() {
 
 // Render pins to the home page
 const createPinElement = function(pinObject) {
-  console.log(pinObject)
   return $('#wrapper').prepend(
     `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
@@ -71,7 +70,6 @@ if (window.location.pathname === "/profile"){
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
-  // console.log(id)
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
       // console.log(res.pins[0])
@@ -84,6 +82,7 @@ $('#wrapper').on('click', '.box', function () {
       }
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
+      document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
     });
 })
 
@@ -92,4 +91,12 @@ const likePin = async function(pinId) {
   $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
 }
 
+//event for pressing like button
+$('#submit-button').on('click', function () {
+  const id = $(this).attr('data-id')
+  $.ajax('/like/:id')
+  .then(res => {
+
+  })
+});
 
