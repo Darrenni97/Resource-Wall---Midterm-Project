@@ -1,0 +1,29 @@
+body {
+  text-align: center;
+  background-image: url('http://www.hibryd.com/photoshop/ch_sccp_badges.jpg')
+}
+
+#form-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between
+}
+
+#create-pin {
+  position: absolute;
+  margin-left: 750px;
+  margin-top: 175px;
+}
+
+#clipboard {
+  position: absolute;
+  left: 0;
+  margin-left: 650px;
+  height: 900px;
+  width: 700px;
+}
+
+.form-text {
+  width: 400px;
+  background-color: transparent
+}

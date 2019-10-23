@@ -3,14 +3,26 @@
   height: 200px;
 }
 
-#user-header {
-  background-color: #2587e2;
+
+#user-header{
   position: relative;
   box-sizing: border-box;
   text-align: center;
+  font-weight: bold;
+  margin: 40px;
 }
 
 .link {
   color: black;
   font-size: 24px;
+}
+
+#profile-flex {
+  display: flex;
+}
+
+div#wrapper {
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 100%;
 }

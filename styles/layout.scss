@@ -5,9 +5,35 @@ body {
   font-size: 24px;
 }
 
-.btn {
+#pin-image {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(95%);
+}
+
+#pin-image:hover {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+
+#push-pin {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(60%);
+}
+
+.like-button {
+  background-color: #abb889;
+  outline: none;
   margin-left: 5px;
   margin-right: 5px;
+  color: white;
+}
+
+.comment-button {
+  background-color: #abb889;
+  outline: none;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
 }
 
 $rating-emoji: '⭐️' !default;
@@ -44,7 +70,7 @@ $rating-emoji: '⭐️' !default;
     display: flex;
     margin: auto;
     border-radius: .25em;
-    background-color: #2587e2;
+    background-color: #abb889;
     box-shadow: 0 .25em 1em rgba(0,0,0,.25);
     transition: box-shadow .3s ease;
 

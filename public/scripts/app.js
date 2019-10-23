@@ -18,18 +18,18 @@ const createPinElement = function(pinObject) {
   return $('#wrapper').prepend(
     `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
-        <a href='${pinObject.resource_url}' target="_blank" ><img src="${pinObject.photo_url}"/></a>
-        <img id="push-pin" src="https://i2.wp.com/freepngimages.com/wp-content/uploads/2014/04/DrawingPin1_Blue_2.png?fit=220%2C220"/>
+        <a href='${pinObject.resource_url}' target="_blank" ><img id="pin-image" src="${pinObject.photo_url}"/></a>
+        <img id="push-pin" src="https://i.ibb.co/j37fHg7/588891f2bc2fc2ef3a1860a5.png"/>
       </div>
       <div class='pin-description'>
         <h4>${pinObject.title}</h4>
         <p>${pinObject.description}</p>
       </div>
       <div id="like-comment-button">
-        <button type="button" class="btn btn-primary" class="comment-button" data-toggle="modal" data-target="#modal">
+        <button type="button" class="comment-button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
             <i class="fa fa-comments" aria-hidden="true"></i>
           </button>
-        <button class="btn btn-primary" class="like-button" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
+        <button class="like-button" class="btn btn-primary" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
       </div>
       <div>${pinObject.count} Likes</div>
     </div>`)
