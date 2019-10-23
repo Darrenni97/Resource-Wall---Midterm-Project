@@ -26,10 +26,10 @@ const createPinElement = function(pinObject) {
         <p>${pinObject.description}</p>
       </div>
       <div id="like-comment-button">
-        <button type="button" class="btn btn-primary" class="comment-button" data-toggle="modal" data-target="#modal">
+        <button type="button" class="comment-button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
             <i class="fa fa-comments" aria-hidden="true"></i>
           </button>
-        <button class="btn btn-primary" class="like-button" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
+        <button class="like-button" class="btn btn-primary" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
       </div>
       <div>${pinObject.count} Likes</div>
     </div>`)
