@@ -49,6 +49,7 @@ const likedPinsRoutes = require("./routes/liked-pins");
 const previewPinsRoutes = require("./routes/previewPins");
 const likeRoutes = require("./routes/likes");
 const commentsRoutes = require('./routes/comments')
+const addCommentRoutes = require('./routes/addComment')
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -59,6 +60,7 @@ app.use("/api/liked-pins", likedPinsRoutes(db));
 app.use("/api/preview-pins", previewPinsRoutes(db));
 app.use("/api/likes", likeRoutes(db));
 app.use("/api/comments", commentsRoutes(db));
+app.use("/api/addComment", addCommentRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
@@ -191,16 +193,6 @@ app.post('/register', async (req, res) => {
     .catch(err => console.log(err.stack));
 });
 
-// app.post('/comments', (req, res) => {
-//   const values = [req.session.user_id, /*post id*/ ,req.body.text];
-//   return db.query(`
-//   INSERT INTO comments(user_id, pin_id, body)
-//   VALUES ($1, $2, $3) RETURNING *;
-//   `, values)
-//   .then(res => res.rows[0])
-//   .then(res.redirect('/'))
-//   .catch(err => console.log(err.stack));
-// })
 
 // Updates the user info
 app.post('/update', async (req, res) => {

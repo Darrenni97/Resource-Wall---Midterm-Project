@@ -103,6 +103,14 @@ $('#wrapper').on('click', '.box', function () {
   })
 })
 
+$('#submit-button').on('click', () => {
+  const id = $('#submit-button').attr('data-id')
+  $.ajax({method: 'GET', url: `/api/addComment/${id}`, dataType: 'JSON'})
+  .then((req, res) => {
+    console.log(res)
+  })
+})
+
 //Like and log to db when like button is clicked
 const likePin = async function(pinId) {
   $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
