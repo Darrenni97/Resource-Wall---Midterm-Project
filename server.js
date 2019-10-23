@@ -48,6 +48,7 @@ const pinsRoutes = require("./routes/pins");
 const likedPinsRoutes = require("./routes/liked-pins");
 const previewPinsRoutes = require("./routes/previewPins");
 const likeRoutes = require("./routes/likes");
+const commentsRoutes = require('./routes/comments')
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -57,6 +58,7 @@ app.use("/api/pins", pinsRoutes(db));
 app.use("/api/liked-pins", likedPinsRoutes(db));
 app.use("/api/preview-pins", previewPinsRoutes(db));
 app.use("/api/likes", likeRoutes(db));
+app.use("/api/comments", commentsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 

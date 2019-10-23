@@ -75,15 +75,32 @@ $('#wrapper').on('click', '.box', function () {
       // console.log(res.pins[0])
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
-      if (!res.pins[0].body) {
-        document.getElementById('modal-comment').textContent = 'No Comments!'
-      } else {
-        document.getElementById('modal-comment').textContent = `${res.pins[0].body}`
-      }
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
     });
+  $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
+  .then(res => {
+    $('#modal-comments').empty();
+    console.log(res.comments)
+    const createCommentElement = function(commentObject) {
+      return(
+        `
+        <div>${commentObject.username}</div>
+        <div>${commentObject.body}</div>
+        `)
+    };
+    if (res.comments.length !== 0) {
+      $('#modal-comments').empty();
+      for (const comment of res.comments) {
+        const newComment = createCommentElement(comment);
+        $('#modal-comments').prepend(newComment);
+      }
+    } else {
+      const noComment = '<div>No Comments!</div>'
+      $('#modal-comments').prepend(noComment)
+    }
+  })
 })
 
 //Like and log to db when like button is clicked
