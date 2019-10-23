@@ -67,6 +67,14 @@ if (window.location.pathname === "/profile"){
   getLikedPins()
 }
 
+//Create comment template
+const createCommentElement = function(commentObject) {
+  return(
+    `
+    <div>@${commentObject.username}</div>
+    <div>${commentObject.body}</div>
+    `)
+};
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
@@ -82,13 +90,6 @@ $('#wrapper').on('click', '.box', function () {
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
     $('#modal-comments').empty();
-    const createCommentElement = function(commentObject) {
-      return(
-        `
-        <div>${commentObject.username}</div>
-        <div>${commentObject.body}</div>
-        `)
-    };
     if (res.comments.length !== 0) {
       $('#modal-comments').empty();
       for (const comment of res.comments) {
@@ -104,11 +105,10 @@ $('#wrapper').on('click', '.box', function () {
 
 $('#submit-button').on('click', () => {
   const id = $('#submit-button').attr('data-id')
-  // get all the data
   const comment = $('#comment').val()
   $.ajax({method: 'POST', url: `/api/addComment/${id}`, dataType: 'JSON', data: {text: comment}})
-  .then((req, res) => {
-    console.log(res)
+  .then(res => {
+    $('#modal-comments').prepend(createCommentElement(res.comments));
   })
 })
 
