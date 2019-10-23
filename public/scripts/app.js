@@ -19,7 +19,7 @@ const createPinElement = function(pinObject) {
     `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
         <a href='${pinObject.resource_url}' target="_blank" ><img src="${pinObject.photo_url}"/></a>
-        <img id="push-pin" src="https://i2.wp.com/freepngimages.com/wp-content/uploads/2014/04/DrawingPin1_Blue_2.png?fit=220%2C220"/>
+        <img id="push-pin" src="https://i.ibb.co/j37fHg7/588891f2bc2fc2ef3a1860a5.png"/>
       </div>
       <div class='pin-description'>
         <h4>${pinObject.title}</h4>
