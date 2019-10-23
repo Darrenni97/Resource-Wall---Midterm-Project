@@ -8,50 +8,53 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/create.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Oswald:300&display=swap" rel="stylesheet">
 
   </head>
 
   <body>
       <header> <%include ./partials/header.ejs %></header>
-    <h1>Create New Pin</h1>
+    <!-- <h1>Create New Pin</h1> -->
+    <div id='form-wrapper'>
+      <img id='clipboard' src='https://webstockreview.net/images/clipboard-clipart-transparent-background-8.png'>
+      <form id='create-pin' method='POST' action='/create'>
 
-    <form id='create-pin' method='POST' action='/create'>
+        <div class="pin-form-field">
+          <label class="pin-label" for="pin-title">Title</label>
+          <textarea class='form-text' id='pin-title' name="title" placeholder="Title"></textarea>
+        </div>
 
-      <div class="pin-form-field">
-        <label class="pin-label" for="pin-title">Title</label>
-        <textarea id='pin-title' name="title" placeholder="Title"></textarea>
-      </div>
+        <div class="pin-form-field">
+          <label class="pin-label" for="pin-description">Description</label>
+          <textarea class='form-text' id='pin-description' name="description" placeholder="Description"></textarea>
+        </div>
 
-      <div class="pin-form-field">
-        <label class="pin-label" for="pin-description">Description</label>
-        <textarea id='pin-description' name="description" placeholder="Description"></textarea>
-      </div>
+        <div class="pin-form-field">
+          <label class="pin-label" for="pin-resource_url">URL for Resource</label>
+          <textarea class='form-text' id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
+        </div>
 
-      <div class="pin-form-field">
-        <label class="pin-label" for="pin-resource_url">URL for Resource</label>
-        <textarea id='pin-resource_url' name="resource" placeholder="Resource"></textarea>
-      </div>
+        <div class="pin-form-field">
+          <label class="pin-label" for="pin-photo_url">URL for Photo</label>
+          <textarea class='form-text' id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
+        </div>
 
-      <div class="pin-form-field">
-        <label class="pin-label" for="pin-photo_url">URL for Photo</label>
-        <textarea id='pin-photo_url' name="photo" placeholder="Photo"></textarea>
-      </div>
-
-      <div class="pin-form-field">
-        <label class="pin-label" for="pin-tags">Tag your Resource</label>
-        <select id = "pins" name ="tags">
-            <option value = "Technology">Technology</option>
-                <option value = "Sports">Sports</option>
-                <option value = "Foods">Foods</option>
-                <option value = "Arts">Arts</option>
-                <option value = "Miscellaneous">Miscellaneous</option>
-          </select>
-      </div>
+        <div class="pin-form-field">
+          <label class="pin-label" for="pin-tags">Tag your Resource</label>
+          <select id = "pins" name ="tags">
+              <option value = "Technology">Technology</option>
+                  <option value = "Sports">Sports</option>
+                  <option value = "Foods">Foods</option>
+                  <option value = "Arts">Arts</option>
+                  <option value = "Miscellaneous">Miscellaneous</option>
+            </select>
+        </div>
 
 
-        <input class="pin-submit" type="submit" value="Submit">
-    </form>
+          <input class="pin-submit" type="submit" value="Submit">
+      </form>
+    </div>
 
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
