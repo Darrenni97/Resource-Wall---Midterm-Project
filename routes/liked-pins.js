@@ -9,6 +9,7 @@ module.exports = (db) => {
     FROM pins
     LEFT JOIN likes ON pins.id = likes.pin_id
     WHERE creator_id = ${cookie} OR user_id = ${cookie}
+    GROUP BY pins.id;
     `)
       .then(data => {
         const pins = data.rows;
