@@ -4,7 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
   const generateViewPinQuery = function(id) {
     return db.query(`
-    SELECT pins.*, comments.*, count(likes.*), ratings.*
+    SELECT pins.*, comments.*, count(likes.*), count(ratings.*) as rating_average
     FROM pins
     LEFT JOIN comments ON pins.id = comments.pin_id
     LEFT JOIN likes ON pins.id = likes.pin_id
