@@ -90,13 +90,3 @@ $('#wrapper').on('click', '.box', function () {
 const likePin = async function(pinId) {
   $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
 }
-
-//event for pressing like button
-$('#submit-button').on('click', function () {
-  const id = $(this).attr('data-id')
-  $.ajax('/like/:id')
-  .then(res => {
-
-  })
-});
-

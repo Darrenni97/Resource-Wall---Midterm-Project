@@ -151,10 +151,6 @@ app.post('/login', (req, res) => {
     .catch(e => res.send(e));
 });
 
-// app.get('/whoami', (req, res) => {
-
-// })
-
 app.post('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
@@ -264,19 +260,6 @@ app.post('/update', async (req, res) => {
   .then(res.redirect('/profile'))
   .catch(err => console.error('query error: failed to update user', err.stack));
 });
-
-// Likes pins and send to database
-// app.post('/likes', (req, res) => {
-//   console.log("hello")
-//   // const values = [req.session.user_id, PIN-ID];
-//   // return db.query(`
-//   // INSERT INTO likes(user_id, pin_id)
-//   // VALUES ($1, $2) RETURNING *;
-//   // `, values)
-//   // .then(res => res.rows[0])
-//   // .then(res.redirect('/'))
-//   // .catch(err => console.log(err.stack));
-// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
