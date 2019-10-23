@@ -5,6 +5,21 @@ body {
   font-size: 24px;
 }
 
+#pin-image {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(95%);
+}
+
+#pin-image:hover {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+
+#push-pin {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(60%);
+}
+
 .like-button {
   background-color: #abb889;
   outline: none;
