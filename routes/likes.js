@@ -16,7 +16,7 @@ module.exports = (db) => {
         if (res.rows[0] === undefined) {
           db.query(`
           INSERT INTO likes(user_id, pin_id)
-          VALUES ($1, $2);
+          VALUES ($1, $2) RETURNING *;
           `, values)
         }
       })

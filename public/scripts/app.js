@@ -31,7 +31,7 @@ const createPinElement = function(pinObject) {
           </button>
         <button class="btn btn-primary" class="like-button" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
       </div>
-      <div>0 Likes</div>
+      <div>${pinObject.count} Likes</div>
     </div>`)
 };
 const renderPins = function(pins, query) {

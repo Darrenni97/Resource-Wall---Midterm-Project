@@ -7,7 +7,7 @@ module.exports = (db) => {
     SELECT pins.*, count(likes.*)
     FROM pins
     LEFT JOIN likes ON likes.pin_id = pins.id
-    GROUP BY pins.id, likes.id
+    GROUP BY pins.id
     `)
   };
   router.get("/", (req, res) => {
