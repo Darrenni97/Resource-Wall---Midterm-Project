@@ -82,7 +82,6 @@ $('#wrapper').on('click', '.box', function () {
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
     $('#modal-comments').empty();
-    console.log(res.comments)
     const createCommentElement = function(commentObject) {
       return(
         `
@@ -105,7 +104,9 @@ $('#wrapper').on('click', '.box', function () {
 
 $('#submit-button').on('click', () => {
   const id = $('#submit-button').attr('data-id')
-  $.ajax({method: 'GET', url: `/api/addComment/${id}`, dataType: 'JSON'})
+  // get all the data
+  const comment = $('#comment').val()
+  $.ajax({method: 'POST', url: `/api/addComment/${id}`, dataType: 'JSON', data: {text: comment}})
   .then((req, res) => {
     console.log(res)
   })
