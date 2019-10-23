@@ -29,9 +29,9 @@ const createPinElement = function(pinObject) {
         <button type="button" class="comment-button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
             <i class="fa fa-comments" aria-hidden="true"></i>
           </button>
-        <button class="like-button" class="btn btn-primary" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
+        <button class="like-button" class="btn btn-primary" type="button" ><i class="fa fa-heart" aria-hidden="true"></i></button>
       </div>
-      <div>${pinObject.count} Likes</div>
+      <div class="likes-count">${pinObject.count} Likes</div>
     </div>`)
 };
 const renderPins = function(pins, query) {
@@ -112,7 +112,12 @@ $('#submit-button').on('click', () => {
   })
 })
 
-//Like and log to db when like button is clicked
-const likePin = async function(pinId) {
-  $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
-}
+$('#wrapper').on('click', '.like-button', function(e) {
+  const box = $(this).closest('.box');
+  const id = box.attr('data-id');
+
+   $.ajax({method: 'get', url: `/api/likes/${id}`, dataType: 'JSON'})
+    .then(({ likes }) => {
+      box.find('.likes-count').text(`${likes} likes`);
+    })
+})
