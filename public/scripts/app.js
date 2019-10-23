@@ -15,6 +15,7 @@ const getLikedPins = function() {
 
 // Render pins to the home page
 const createPinElement = function(pinObject) {
+<<<<<<< HEAD
   return $('#wrapper').prepend(
     `<div class='box' data-id="${pinObject.id}">
       <div id="image-box">
@@ -33,7 +34,33 @@ const createPinElement = function(pinObject) {
       </div>
       <div class="likes-count">${pinObject.count} Likes</div>
     </div>`)
+=======
+  console.log(pinObject)
+  let htmlFirst =  `<div class='box' data-id="${pinObject.id}">
+  <div id="image-box">
+    <a href='${pinObject.resource_url}' target="_blank" ><img id="pin-image" src="${pinObject.photo_url}"/></a>
+    <img id="push-pin" src="https://i.ibb.co/j37fHg7/588891f2bc2fc2ef3a1860a5.png"/>
+  </div>
+  <div class='pin-description'>
+    <h4>${pinObject.title}</h4>
+    <p>${pinObject.description}</p>
+  </div>
+  <div id="like-comment-button">
+    <button type="button" class="comment-button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+      </button>
+    <button class="like-button" class="btn btn-primary" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
+  </div>`
+  let htmlSecond = `  <div>${pinObject.num_likes} Likes</div>
+</div>`
+  if(pinObject.rating_average !== null) {
+    return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} Stars</div>` + htmlSecond)
+  } else {
+    return $('#wrapper').prepend(htmlFirst + `<div> 0.00 Stars</div>` + htmlSecond)
+  }
+>>>>>>> f9d8b4bf7a4cad639a57978c2983bae59d973d3f
 };
+
 const renderPins = function(pins, query) {
   if (!!query === true) {
     pins = pins.filter((pin) => pin.tag === query);
@@ -84,6 +111,7 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
+      // document.getElementById('modal-avg-rating').textContent = `${res.pins[0].avg(rating)} Stars`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
     });
@@ -112,6 +140,8 @@ $('#submit-button').on('click', () => {
   })
 })
 
+
+//Like and log to db when like button is clicked
 $('#wrapper').on('click', '.like-button', function(e) {
   const box = $(this).closest('.box');
   const id = box.attr('data-id');
@@ -121,3 +151,12 @@ $('#wrapper').on('click', '.like-button', function(e) {
       box.find('.likes-count').text(`${likes} likes`);
     })
 })
+
+$('.star__radio').on('click', () => {
+  const rating = $('.star__radio').attr('id')
+  console.log(rating)
+  console.log('hello')
+console.log($('data-id'))
+  // $.ajax({method: 'GET', url: `/api/rating/${pinId}`, dataType: 'JSON'})
+}
+)
