@@ -127,7 +127,7 @@ $('#wrapper').on('click', '.like-button', function(e) {
 
    $.ajax({method: 'get', url: `/api/likes/${id}`, dataType: 'JSON'})
     .then(({ likes }) => {
-      box.find('.likes-count').text(`${likes} likes`);
+      box.find('.likes-count').text(`${likes} Likes`);
     })
 })
 
