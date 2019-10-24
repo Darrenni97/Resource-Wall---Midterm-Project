@@ -12,6 +12,7 @@ module.exports = (db) => {
     LEFT JOIN likes ON pins.id = likes.pin_id
     WHERE creator_id = ${cookie} OR likes.user_id = ${cookie}
     GROUP BY pins.id
+    ORDER BY pins.id
     `)
       .then(data => {
         const pins = data.rows;
