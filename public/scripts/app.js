@@ -37,9 +37,9 @@ const createPinElement = function(pinObject) {
   </div>
 </div>`
   if(pinObject.rating_average !== null) {
-    return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} Stars</div>` + htmlSecond)
+    return $('#wrapper').prepend(htmlFirst + ` <div class="rating-avg" > ${pinObject.rating_average} Stars (${pinObject.num_rating})</div>` + htmlSecond)
   } else {
-    return $('#wrapper').prepend(htmlFirst + `<div> 0.00 Stars</div>` + htmlSecond)
+    return $('#wrapper').prepend(htmlFirst + ` <div class="rating-avg" > 0.00 Stars</div>` + htmlSecond)
   }
 };
 
@@ -86,9 +86,12 @@ const createCommentElement = (commentObject) => {
   `)
 };
 
+let clickedPin = null
+
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
+  clickedPin = $(this).find('.rating-avg')
 
   // Method to get specific pin information into modal
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
@@ -96,12 +99,12 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
-      document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
+      document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].num_likes} likes`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
       if (res.pins[0].average_rating === null) {
         document.getElementById('modal-avg-rating').textContent = `0 Stars`
       } else {
-        document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
+        document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars (${res.pins[0].num_rating})`
       }
     });
 
@@ -141,14 +144,18 @@ $('#wrapper').on('click', '.like-button', function(e) {
     })
 })
 
-//Rate and log to db when like button is clicked
+//Rate and log to db when rate button is clicked
 $('.star__radio').on('click', (event) => {
   const rating = $(event.target).attr('data-id')
   const id = $('#submit-button').attr('data-id')
+  const avgRating = clickedPin.text().split(' ')
+  let ratingCount = (Number(avgRating[3].replace(/\(|\)/g,''))+1)
+  let ratingNum = (Number(avgRating[1]) + (Number(rating)* Number(avgRating[3].replace(/\(|\)/g,''))))
+  let newRating = Math.round((ratingNum/ratingCount), 2).toFixed(2)
+  clickedPin.text(`${newRating} Stars (${ratingCount})`)
+  let avgRatingModal = $(event.target).parent().parent().find('#modal-avg-rating')
+  avgRatingModal.text(`${newRating} Stars (${ratingCount})`)
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
-    .then(({ rating }) => {
-      box.find('.likes-count').text(`${rating} Likes`);
-    })
 })
 
 // Scroll button that takes user to top of page when clicked
