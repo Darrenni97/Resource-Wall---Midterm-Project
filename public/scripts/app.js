@@ -147,3 +147,19 @@ $('.star__radio').on('click', (event) => {
       box.find('.likes-count').text(`${rating} Likes`);
     })
 })
+
+// Scroll button that takes user to top of page when clicked
+$(window).scroll(function() {
+  if (($(window).scrollTop()) >= 250) {
+    $("#scroll-button").removeClass("before-scroll");
+    $("#scroll-button").addClass("after-scroll");
+  } else {
+    $("#scroll-button").addClass("before-scroll");
+    $("#scroll-button").removeClass("after-scroll");
+  }
+});
+
+$("#scroll-button").on("click", function(event) {
+  event.preventDefault();
+  $('html').animate({scrollTop: 0}, 'medium');
+});

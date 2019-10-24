@@ -11,6 +11,7 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session')
 const bcrypt = require('bcrypt');
+const { setCurrentUser, findUserByEmail, login } = require('./helpers');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -41,9 +42,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
 const pinsRoutes = require("./routes/pins");
 const likedPinsRoutes = require("./routes/liked-pins");
 const previewPinsRoutes = require("./routes/previewPins");
@@ -53,9 +52,7 @@ const addCommentRoutes = require('./routes/addComment')
 const ratingRoutes = require('./routes/rating')
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/pins", pinsRoutes(db));
 app.use("/api/liked-pins", likedPinsRoutes(db));
 app.use("/api/preview-pins", previewPinsRoutes(db));
@@ -66,83 +63,43 @@ app.use("/api/rating", ratingRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
-
-// We need this to fetch the user from the database using the COOKIE ID!!!!
-async function setCurrentUser(req, res) {
-  const user_id = req.session["user_id"];
-    try {
-      const query = await db.query(`
-      SELECT users.*
-      FROM users
-      WHERE id = $1
-      `,
-      [`${user_id}`]
-    )
-    const user = query.rows[0];
-    return user;
-
-    }
-    catch(e) {
-      console.log('error in setCurrentUser', e);
-    }
-}
-
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
 app.get("/", async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render("index", { current_user });
 });
 
+// Get Login Page
 app.get('/login', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('login', { current_user });
 });
 
+// Register
 app.get('/register', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('register', { current_user });
 });
 
+// Profile
 app.get('/profile', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('profile', { current_user });
 });
 
+// Create new pin
 app.get('/create', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('create', { current_user });
 });
 
+// Update profile
 app.get('/update', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('update', { current_user });
 });
 
-
-const findUserByEmail = (email) => {
-  return db.query(`
-  SELECT users.*
-  FROM users
-  WHERE email = $1
-  `,
-  [`${email}`])
-  .then(res => res.rows[0])
-  .catch(err => console.error('query error: user = null', err.stack));
-}
-
-const login = (email, password) => {
-  return findUserByEmail(email)
-  .then((user) => {
-    if (bcrypt.compareSync(password, user.password)) {
-      return user;
-    }
-    return null;
-  });
-}
-
+// Use login page to login as user
 app.post('/login', (req, res) => {
   const {email, password} = req.body;
   login(email, password)
@@ -151,13 +108,13 @@ app.post('/login', (req, res) => {
         res.send({error: "error: user not found"});
         return;
       }
-
       req.session["user_id"] = user.id;
       res.redirect('/');
     })
     .catch(e => res.send(e));
 });
 
+// Logout current user
 app.post('/logout', (req, res) => {
   req.session = null;
   res.redirect('/');
@@ -175,7 +132,7 @@ app.post('/create', (req, res) => {
   .catch(err => console.log(err.stack));
 });
 
-//Submits register information to database
+//Submits register information into database
 app.post('/register', async (req, res) => {
   const values = [req.body.username, req.body.email, bcrypt.hashSync(req.body.password, 10)];
   if (req.body.username === '' || req.body.username ===  '' || req.body.password === '') { //checks for empty fields
@@ -195,7 +152,6 @@ app.post('/register', async (req, res) => {
     .then(res.redirect('/login'))
     .catch(err => console.log(err.stack));
 });
-
 
 // Updates the user info
 app.post('/update', async (req, res) => {
