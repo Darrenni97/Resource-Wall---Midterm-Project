@@ -9,6 +9,7 @@ module.exports = (db) => {
     FROM pins
     LEFT JOIN ratings ON ratings.pin_id = pins.id
     GROUP BY pins.id
+    ORDER BY pins.id
     `)
   };
   router.get("/", (req, res) => {
