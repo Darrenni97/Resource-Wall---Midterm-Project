@@ -5,7 +5,7 @@ module.exports = (db) => {
   const addCommentQuery = function(values) {
     return db.query(`
     INSERT INTO comments(user_id, pin_id, body)
-    VALUES ($1, $2, $3) RETURNING *;
+    VALUES ($1, $2, $3);
     `, values)
   };
 
@@ -20,14 +20,14 @@ module.exports = (db) => {
 
   router.post("/:id", (req, res) => {
     const values = [req.session.user_id, req.params.id, req.body.text];
-    console.log('values', values);
     addCommentQuery(values)
-      .then(getCommentQuery(values)
+      .then(() => {
+        getCommentQuery(values)
         .then(data => {
         const comments = data.rows[0];
         res.json({comments})
        })
-      )
+      })
   });
   return router;
 };
