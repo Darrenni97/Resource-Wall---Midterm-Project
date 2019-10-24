@@ -1,3 +1,11 @@
+// PG database client/connection setup
+const { Pool } = require('pg');
+const dbParams = require('./lib/db.js');
+const db = new Pool(dbParams);
+db.connect();
+
+const bcrypt = require('bcrypt');
+
 // We need this to fetch the user from the database using the COOKIE ID!!!!
 async function setCurrentUser(req, res) {
   const user_id = req.session["user_id"];
