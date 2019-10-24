@@ -13,9 +13,8 @@
 
   <body>
     <header> <%include ./partials/header.ejs %></header>
-    <div id='form-wrapper'>
     <% if(current_user === undefined){ %>
-      <h2 id="logged">Please Login or Register to view this page!</h1>
+      <h2 id="logged">Please Login or Register to view this page!</h2>
       <% } else { %>
             <div id='form-wrapper'>
       <div class="clipboard-inner">
