@@ -5,17 +5,20 @@ module.exports = (db) => {
   router.get("/profile", (req, res) => {
     let cookie = req.session.user_id
     db.query(`
-    SELECT title, description, resource_url, photo_url
+    SELECT pins.*, (SELECT count(likes) as num_likes
+    FROM likes WHERE likes.pin_id = pins.id), round(AVG(ratings.rating), 2) as rating_average
     FROM pins
+    LEFT JOIN ratings ON ratings.pin_id = pins.id
     LEFT JOIN likes ON pins.id = likes.pin_id
-    WHERE creator_id = ${cookie} OR user_id = ${cookie}
-    GROUP BY pins.id;
+    WHERE creator_id = ${cookie} OR likes.user_id = ${cookie}
+    GROUP BY pins.id
     `)
       .then(data => {
         const pins = data.rows;
         res.json({ pins });
       })
       .catch(err => {
+        console.log(err)
         res
           .status(500)
           .json({ error: err.message });
