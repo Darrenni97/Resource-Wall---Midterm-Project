@@ -6,7 +6,9 @@ module.exports = (db) => {
     let cookie = req.session.user_id
     db.query(`
     SELECT pins.*, (SELECT count(likes) as num_likes
-    FROM likes WHERE likes.pin_id = pins.id), round(AVG(ratings.rating), 2) as rating_average
+    FROM likes WHERE likes.pin_id = pins.id),
+    (SELECT count(ratings) as num_rating FROM ratings WHERE ratings.pin_id = pins.id),
+    round(AVG(ratings.rating), 2) as rating_average
     FROM pins
     LEFT JOIN ratings ON ratings.pin_id = pins.id
     LEFT JOIN likes ON pins.id = likes.pin_id

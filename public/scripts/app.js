@@ -39,7 +39,7 @@ const createPinElement = function(pinObject) {
   if(pinObject.rating_average !== null) {
     return $('#wrapper').prepend(htmlFirst + ` <div class="rating-avg" > ${pinObject.rating_average} ⭐️ (${pinObject.num_rating})</div>` + htmlSecond)
   } else {
-    return $('#wrapper').prepend(htmlFirst + ` <div class="rating-avg" > 0.00 ⭐️</div>` + htmlSecond)
+    return $('#wrapper').prepend(htmlFirst + ` <div class="rating-avg" > 0.00 ⭐️ (0) </div>` + htmlSecond)
   }
 };
 
@@ -102,7 +102,7 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].num_likes} 💚`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
       if (res.pins[0].average_rating === null) {
-        document.getElementById('modal-avg-rating').textContent = `0 ⭐️`
+        document.getElementById('modal-avg-rating').textContent = `0 ⭐️ (0)`
       } else {
         document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} ⭐️ (${res.pins[0].num_rating})`
       }
@@ -147,13 +147,17 @@ $('#wrapper').on('click', '.like-button', function(e) {
 $('.star__radio').on('click', (event) => {
   const rating = $(event.target).attr('data-id')
   const id = $('#submit-button').attr('data-id')
-  const avgRating = clickedPin.text().split(' ')
-  let ratingCount = (Number(avgRating[3].replace(/\(|\)/g,''))+1)
-  let ratingNum = (Number(avgRating[1]) + (Number(rating)* Number(avgRating[3].replace(/\(|\)/g,''))))
-  let newRating = Math.round((ratingNum/ratingCount), 2).toFixed(2)
-  clickedPin.text(`${newRating} Stars (${ratingCount})`)
+
+  const avgRating = clickedPin.text().trim().split(' ')
+  console.log(avgRating)
+  let ratingCount = (Number(avgRating[2].replace(/\(|\)/g,''))+1)
+  let ratingNum = Number(rating) + (Number(avgRating[0])* (ratingCount -1))
+  let newRating = (ratingNum/ratingCount).toFixed(2)
+
+  clickedPin.text(`${newRating} ⭐️ (${ratingCount})`)
+
   let avgRatingModal = $(event.target).parent().parent().find('#modal-avg-rating')
-  avgRatingModal.text(`${newRating} Stars (${ratingCount})`)
+  avgRatingModal.text(`${newRating} ⭐️ (${ratingCount})`)
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
 })
 
