@@ -159,9 +159,6 @@ $('.star__radio').on('click', (event) => {
   let avgRatingModal = $(event.target).parent().parent().find('#modal-avg-rating')
   avgRatingModal.text(`${newRating} ⭐️ (${ratingCount})`)
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
-    // .then(({ rating }) => {
-    //   box.find('.likes-count').text(`${rating} 💚`);
-    // })
 })
 
 // Scroll button that takes user to top of page when clicked
