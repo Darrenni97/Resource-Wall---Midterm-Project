@@ -99,7 +99,11 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
-      document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
+      if (res.pins[0].average_rating === null) {
+        document.getElementById('modal-avg-rating').textContent = `0 Stars`
+      } else {
+        document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
+      }
     });
 
   //Method to get render comments into modal
