@@ -12,40 +12,44 @@
 
   </head>
 
-  <body>
+  <body class="update-profile">
       <header> <%include ./partials/header.ejs %></header>
-    <h1>Update Your Account</h1>
-    <form id="update-profile" class="form-center" method="POST" action="/update">
+    <div id="form-wrapper">
+    <div class="clipboard-inner">
+        <h1>Update Your Account</h1>
+        <form id="update-profile" class="form-center" method="POST" action="/update">
 
 
-        <div class="pin-form-field">
-          <label class="profile-label" for="register">Email address</label>
-          <input class="form-center" type="email" name="email" placeholder= '<%= current_user.email %>' style="width: 300px; margin: 1em">
-        </div>
+            <div class="pin-form-field">
+              <label class="profile-label" for="register">Email address</label>
+              <input class="form-center" type="email" name="email" placeholder= '<%= current_user.email %>' style="width: 300px; margin: 1em">
+            </div>
 
-        <div class="pin-form-field">
-        <label class="profile-label" for="register">Password</label>
-        <input class="form-center" type="password" name="password" placeholder= '*****' style="width: 300px; margin: 1em">
+            <div class="pin-form-field">
+            <label class="profile-label" for="register">Password</label>
+            <input class="form-center" type="password" name="password" placeholder= '*****' style="width: 300px; margin: 1em">
+          </div>
+
+            <div class="pin-form-field">
+            <label class="profile-label" for="register">User Name</label>
+            <input class="form-center" type="username" name="username" placeholder= '<%= current_user.username %>' style="width: 300px; margin: 1em">
+          </div>
+
+            <div class="pin-form-field">
+            <label class="profile-label" for="register">Profile Picture</label>
+            <input class="form-center" type="profile_picture" name="profile_picture" placeholder= '<%= current_user.profile_picture %>'' style="width: 300px; margin: 1em">
+          </div>
+
+            <div class="pin-form-field">
+            <label class="profile-label" for="register">Bio</label>
+            <input class="form-center" type="bio" name="bio" placeholder= '<%= current_user.bio %>' style="width: 300px; margin: 1em">
+          </div>
+
+            <button type="submit" class="btn btn-success">Update</button>
+
+        </form>
       </div>
-
-        <div class="pin-form-field">
-        <label class="profile-label" for="register">User Name</label>
-        <input class="form-center" type="username" name="username" placeholder= '<%= current_user.username %>' style="width: 300px; margin: 1em">
-      </div>
-
-        <div class="pin-form-field">
-        <label class="profile-label" for="register">Profile Picture</label>
-        <input class="form-center" type="profile_picture" name="profile_picture" placeholder= '<%= current_user.profile_picture %>'' style="width: 300px; margin: 1em">
-      </div>
-
-        <div class="pin-form-field">
-        <label class="profile-label" for="register">Bio</label>
-        <input class="form-center" type="bio" name="bio" placeholder= '<%= current_user.bio %>' style="width: 300px; margin: 1em">
-      </div>
-
-        <button type="submit" class="btn btn-success">Update</button>
-
-    </form>
+    </div>
 
 
     <!-- Scripts -->
