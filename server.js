@@ -166,19 +166,19 @@ app.post('/update', async (req, res) => {
   UPDATE users
   `;
   if (req.body.username) {
-    queryParams.push(`%${req.body.username}%`);
+    queryParams.push(`${req.body.username}`);
     queryString += `SET username = $${queryParams.length}`;
   }
   if (req.body.email) {
     if (queryParams.length > 0) {
-      queryParams.push(req.body.email);
+      queryParams.push(`${req.body.email}`);
       queryString += `, email = $${queryParams.length}`;
     } else {
-      queryParams.push(req.body.email);
+      queryParams.push(`${req.body.email}`);
       queryString += `SET email = $${queryParams.length}`;
     }
   }
-  if (bcrypt.hashSync(req.body.password, 10)) {
+  if (req.body.password) {
     if (queryParams.length > 0) {
       queryParams.push(bcrypt.hashSync(req.body.password, 10));
       queryString += `, password = $${queryParams.length}`;
