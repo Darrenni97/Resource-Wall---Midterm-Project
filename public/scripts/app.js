@@ -43,20 +43,20 @@ const createPinElement = function(pinObject) {
   }
 };
 
-const renderPins = function(pins, query) {
+const renderPins = (pins, query) => {
   if (!!query === true) {
     pins = pins.filter((pin) => pin.tag === query);
   }
 
-  for (let i = 0; i < pins.length; i++) {
-    let newPin = createPinElement(pins[i]);
+  for (const pin in pins) {
+    let newPin = createPinElement(pins[pin]);
     $('#wrapper').prepend(newPin);
   }
 };
 
-const renderLikedPins = function(pins) {
-  for (let i = 0; i < pins.length; i++) {
-    let newPin = createPinElement(pins[i]);
+const renderLikedPins = (pins) => {
+  for (const pin in pins) {
+    let newPin = createPinElement(pins[pin]);
     $('#wrapper').prepend(newPin);
   }
 };
@@ -77,19 +77,23 @@ if (window.location.pathname === "/profile"){
 }
 
 //Create comment template
-const createCommentElement = function(commentObject) {
-  return(
-    `
+const createCommentElement = (commentObject) => {
+  return(`
+  <div class='comment-post'>
     <div>@${commentObject.username}</div>
     <div>${commentObject.body}</div>
-    `)
+  <div>
+  `)
 };
+
 //View pin popup
 $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
+
+  // Method to get specific pin information into modal
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
-      console.log('hello', res)
+      console.log(res.pins[0])
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
@@ -97,19 +101,22 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
       document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
     });
+
+  //Method to get render comments into modal
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
     $('#modal-comments').empty();
     if (res.comments.length > 0) {
       $('#modal-comments').empty();
       for (const comment of res.comments) {
-        const newComment = createCommentElement(comment);
-        $('#modal-comments').prepend(newComment);
+        const dbComment = createCommentElement(comment);
+        $('#modal-comments').prepend(dbComment);
       }
     }
   })
 })
 
+//adds new comment to database and prepends it to comment box
 $('#submit-button').on('click', () => {
   const id = $('#submit-button').attr('data-id')
   const comment = $('#comment').val()
@@ -125,7 +132,6 @@ $('#submit-button').on('click', () => {
 $('#wrapper').on('click', '.like-button', function(e) {
   const box = $(this).closest('.box');
   const id = box.attr('data-id');
-
    $.ajax({method: 'POST', url: `/api/likes/${id}`, dataType: 'JSON'})
     .then(({ likes }) => {
       box.find('.likes-count').text(`${likes} Likes`);
@@ -136,7 +142,6 @@ $('#wrapper').on('click', '.like-button', function(e) {
 $('.star__radio').on('click', (event) => {
   const rating = $(event.target).attr('data-id')
   const id = $('#submit-button').attr('data-id')
-  // const box = $(event.target).closest('#modal-avg-rating');
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
     .then(({ rating }) => {
       box.find('.likes-count').text(`${rating} Likes`);

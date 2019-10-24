@@ -9,7 +9,7 @@ module.exports = (db) => {
     LEFT JOIN comments ON pins.id = comments.pin_id
     LEFT JOIN likes ON pins.id = likes.pin_id
     LEFT JOIN ratings ON pins.id = ratings.pin_id
-    WHERE pins.id = 7
+    WHERE pins.id = ${id}
     GROUP BY likes.pin_id, pins.id, comments.user_id, comments.body, ratings.pin_id;
     `)
   };
