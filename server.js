@@ -11,6 +11,7 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session')
 const bcrypt = require('bcrypt');
+const { FUNCTIONS } = require('./helpers');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
