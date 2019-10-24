@@ -33,13 +33,13 @@ const createPinElement = function(pinObject) {
   </div>
   <div class='rating-likes'>
   `
-  let htmlSecond = `  <div class='likes-count'>${pinObject.num_likes} Likes
+  let htmlSecond = `  <div class='likes-count'>${pinObject.num_likes} 💚
   </div>
 </div>`
   if(pinObject.rating_average !== null) {
-    return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} Stars</div>` + htmlSecond)
+    return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} ⭐️</div>` + htmlSecond)
   } else {
-    return $('#wrapper').prepend(htmlFirst + `<div> 0.00 Stars</div>` + htmlSecond)
+    return $('#wrapper').prepend(htmlFirst + `<div> 0.00 ⭐️</div>` + htmlSecond)
   }
 };
 
@@ -96,12 +96,12 @@ $('#wrapper').on('click', '.box', function () {
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
-      document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
+      document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} 💚`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
       if (res.pins[0].average_rating === null) {
-        document.getElementById('modal-avg-rating').textContent = `0 Stars`
+        document.getElementById('modal-avg-rating').textContent = `0 ⭐️`
       } else {
-        document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
+        document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} ⭐️`
       }
     });
 
@@ -135,10 +135,9 @@ $('#submit-button').on('click', () => {
 $('#wrapper').on('click', '.like-button', function(e) {
   const box = $(this).closest('.box');
   const id = box.attr('data-id');
+  const numLikes = box.find('.likes-count').text().split(' ')
+  box.find('.likes-count').text(`${Number(numLikes[0]) + 1} 💚`);
    $.ajax({method: 'POST', url: `/api/likes/${id}`, dataType: 'JSON'})
-    .then(({ likes }) => {
-      box.find('.likes-count').text(`${likes} Likes`);
-    })
 })
 
 //Rate and log to db when like button is clicked
@@ -147,7 +146,7 @@ $('.star__radio').on('click', (event) => {
   const id = $('#submit-button').attr('data-id')
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
     .then(({ rating }) => {
-      box.find('.likes-count').text(`${rating} Likes`);
+      box.find('.likes-count').text(`${rating} 💚`);
     })
 })
 
