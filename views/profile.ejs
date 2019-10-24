@@ -19,6 +19,9 @@
   <body>
     <header> <%include ./partials/header.ejs %></header>
      <!-- User Header -->
+     <% if(current_user === undefined){ %>
+      <h2 id="logged">Please Login or Register to view this page!</h1>
+      <% } else { %>
     <div id='profile-flex'>
       <header id="user-header">
         <div>
@@ -89,7 +92,7 @@
           </div>
         </div>
     </div>
-
+    <% } %>
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>

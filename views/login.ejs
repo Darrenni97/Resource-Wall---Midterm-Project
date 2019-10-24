@@ -14,6 +14,9 @@
 
   <body class="login">
       <header> <%include ./partials/header.ejs %></header>
+      <% if(current_user !== undefined){ %>
+        <h2 id="logged">You are already logged in to your account!</h1>
+        <% } else { %>
     <div id="form-wrapper">
       <div class="clipboard-inner">
       <h1>Login</h1>
@@ -32,7 +35,7 @@
         </form>
       </div>
     </div>
-
+    <% } %>
 
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>

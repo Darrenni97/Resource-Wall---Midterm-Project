@@ -14,6 +14,9 @@
 
   <body class="update-profile">
       <header> <%include ./partials/header.ejs %></header>
+      <% if(current_user === undefined){ %>
+        <h2 id="logged">Please Login or Register to view this page!</h1>
+        <% } else { %>
     <div id="form-wrapper">
     <div class="clipboard-inner">
         <h1>Update Your Account</h1>
@@ -51,7 +54,7 @@
       </div>
     </div>
 
-
+    <% } %>
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->

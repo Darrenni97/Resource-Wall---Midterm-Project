@@ -14,6 +14,9 @@
 
   <body class="register">
       <header> <%include ./partials/header.ejs %></header>
+      <% if(current_user !== undefined){ %>
+        <h2 id="logged">You are already registered for an account!</h1>
+        <% } else { %>
     <div id="form-wrapper">
     <div class="clipboard-inner">
       <h3>Create Account</h3>
@@ -37,7 +40,7 @@
       </form>
     </div>
     </div>
-
+    <% } %>
     <!-- Scripts -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
