@@ -11,7 +11,7 @@ module.exports = (db) => {
     LEFT JOIN ratings ON ratings.pin_id = pins.id
     LEFT JOIN likes ON pins.id = likes.pin_id
     WHERE creator_id = ${cookie} OR likes.user_id = ${cookie}
-    GROUP BY pins.id
+    GROUP BY pins.id, ratings.pin_id
     ORDER BY pins.id
     `)
       .then(data => {
