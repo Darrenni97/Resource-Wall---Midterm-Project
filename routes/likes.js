@@ -17,7 +17,7 @@ module.exports = (db) => {
     WHERE pin_id = $1
     `, values)
   }
-  router.get("/:id", (req, res) => {
+  router.post("/:id", (req, res) => {
     const values = [req.session.user_id, req.params.id];
     queryCheck(values)
       .then(res => {

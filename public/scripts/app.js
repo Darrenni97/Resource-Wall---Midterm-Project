@@ -113,6 +113,7 @@ $('#submit-button').on('click', () => {
   $.ajax({method: 'POST', url: `/api/addComment/${id}`, dataType: 'JSON', data: {text: comment}})
   .then(res => {
     $('#modal-comments').prepend(createCommentElement(res.comments));
+    $("#comment").val('');
   })
 })
 
@@ -122,7 +123,7 @@ $('#wrapper').on('click', '.like-button', function(e) {
   const box = $(this).closest('.box');
   const id = box.attr('data-id');
 
-   $.ajax({method: 'get', url: `/api/likes/${id}`, dataType: 'JSON'})
+   $.ajax({method: 'POST', url: `/api/likes/${id}`, dataType: 'JSON'})
     .then(({ likes }) => {
       box.find('.likes-count').text(`${likes} Likes`);
     })
@@ -132,7 +133,10 @@ $('#wrapper').on('click', '.like-button', function(e) {
 $('.star__radio').on('click', (event) => {
   const rating = $(event.target).attr('data-id')
   const id = $('#submit-button').attr('data-id')
-  console.log(rating)
-  console.log(id)
+  // const box = $(event.target).closest('#modal-avg-rating');
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
+    .then(({ rating }) => {
+      debugger
+      box.find('.likes-count').text(`${rating} Likes`);
+    })
 })
