@@ -15,6 +15,7 @@ module.exports = (db) => {
     FROM comments
     JOIN users ON user_id = users.id
     WHERE user_id = $1 AND pin_id = $2 AND body = $3
+    LIMIT 1;
     `, values)
   };
 
