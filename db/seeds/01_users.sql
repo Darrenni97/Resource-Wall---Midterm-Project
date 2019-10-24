@@ -4,7 +4,7 @@ VALUES
   'Juliaj621',
   'email@email.com',
   '$2b$10$oK3otofSQZ1Sg88Hgk/1vej8WQBcl//jAIIFJIUbhdLEfG/u1Arjq',
-  'https://i.pinimg.com/280x280_RS/dd/d9/d6/ddd9d686287d303adeb57da0f2f1a324.jpg',
+  'https://external-preview.redd.it/lt4vBYakDFzdr3-6nXirTwjcfcgCRBUKs0zWXkMMTvE.jpg?auto=webp&s=3ea96598051340adb46a813b0d8934c364421546',
   'I like dogs'
 ),
 (
