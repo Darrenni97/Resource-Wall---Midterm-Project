@@ -19,13 +19,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/profile"> Welcome back <%= current_user.username %></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id='new-pin'>
             <a class="nav-link" href="/create">+ New Pin</a>
           </li>
         <% } %>
       </ul>
-      <form class="form-inline my-2 my-lg-0" Method='GET' action='/'>
-          <select id = "pins" name ="tags">
+      <form class="form-inline my-2 my-lg-0" id="pins" Method='GET' action='/'>
+          <select name ="tags">
             <option value = ''>Make a Selection</option>
               <option value = "Technology">Technology</option>
                   <option value = "Sports">Sports</option>
