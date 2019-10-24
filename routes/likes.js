@@ -10,13 +10,13 @@ module.exports = (db) => {
     `, values)
   }
 
-  const amountOfLikes = (values) => {
-    return db.query(`
-    SELECT count(*)
-    FROM likes
-    WHERE pin_id = $1
-    `, values)
-  }
+  // const amountOfLikes = (values) => {
+  //   return db.query(`
+  //   SELECT count(*)
+  //   FROM likes
+  //   WHERE pin_id = $1
+  //   `, values)
+  // }
   router.post("/:id", (req, res) => {
     const values = [req.session.user_id, req.params.id];
     queryCheck(values)
@@ -28,18 +28,18 @@ module.exports = (db) => {
           `, values)
         }
       })
-      .then(() => {
-        amountOfLikes([req.params.id])
-          .then(dbres => {
-            const likes = dbres.rows[0].count;
-            res.json({ likes });
-          })
-          .catch(err => {
-            res
-              .status(500)
-              .json({ error: err.message });
-          });
-      })
+      // .then(() => {
+      //   amountOfLikes([req.params.id])
+      //     .then(dbres => {
+      //       const likes = dbres.rows[0].count;
+      //       res.json({ likes });
+      //     })
+      //     .catch(err => {
+      //       res
+      //         .status(500)
+      //         .json({ error: err.message });
+      //     });
+      // })
       .catch(err => {
         res
           .status(500)
