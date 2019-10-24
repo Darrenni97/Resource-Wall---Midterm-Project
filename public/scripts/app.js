@@ -30,8 +30,11 @@ const createPinElement = function(pinObject) {
         <i class="fa fa-comments" aria-hidden="true"></i>
       </button>
     <button class="like-button" class="btn btn-primary" type="button"><i class="fa fa-heart" aria-hidden="true"></i></button>
-  </div>`
-  let htmlSecond = `  <div class='likes-count'>${pinObject.num_likes} Likes</div>
+  </div>
+  <div class='rating-likes'>
+  `
+  let htmlSecond = `  <div class='likes-count'>${pinObject.num_likes} Likes
+  </div>
 </div>`
   if(pinObject.rating_average !== null) {
     return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} Stars</div>` + htmlSecond)
@@ -86,13 +89,13 @@ $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
-      // console.log('hello', res)
+      console.log('hello', res)
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
-      // document.getElementById('modal-avg-rating').textContent = `${res.pins[0].avg(rating)} Stars`
       document.getElementById('modal-amount-of-likes').textContent = `${res.pins[0].count} likes`
       document.getElementById('submit-button').setAttribute("data-id", `${res.pins[0].id}`);
+      document.getElementById('modal-avg-rating').textContent = `${res.pins[0].average_rating} Stars`
     });
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
@@ -136,7 +139,6 @@ $('.star__radio').on('click', (event) => {
   // const box = $(event.target).closest('#modal-avg-rating');
   $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
     .then(({ rating }) => {
-      debugger
       box.find('.likes-count').text(`${rating} Likes`);
     })
 })
