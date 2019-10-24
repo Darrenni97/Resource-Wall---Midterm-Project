@@ -16,7 +16,7 @@ CREATE TABLE pins (
   creator_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   title VARCHAR(255),
   description TEXT,
-  resource_url VARCHAR(255),
+  resource_url TEXT,
   photo_url TEXT,
   tag VARCHAR (15)
 );
