@@ -15,7 +15,7 @@ const getLikedPins = function() {
 
 // Render pins to the home page
 const createPinElement = function(pinObject) {
-  console.log(pinObject)
+  // console.log(pinObject)
   let htmlFirst =  `<div class='box' data-id="${pinObject.id}">
   <div id="image-box">
     <a href='${pinObject.resource_url}' target="_blank" ><img id="pin-image" src="${pinObject.photo_url}"/></a>
@@ -29,9 +29,9 @@ const createPinElement = function(pinObject) {
     <button type="button" class="comment-button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
         <i class="fa fa-comments" aria-hidden="true"></i>
       </button>
-    <button class="like-button" class="btn btn-primary" type="button" onclick="likePin(${pinObject.id})" ><i class="fa fa-heart" aria-hidden="true"></i></button>
+    <button class="like-button" class="btn btn-primary" type="button"><i class="fa fa-heart" aria-hidden="true"></i></button>
   </div>`
-  let htmlSecond = `  <div>${pinObject.num_likes} Likes</div>
+  let htmlSecond = `  <div class='likes-count'>${pinObject.num_likes} Likes</div>
 </div>`
   if(pinObject.rating_average !== null) {
     return $('#wrapper').prepend(htmlFirst + ` <div> ${pinObject.rating_average} Stars</div>` + htmlSecond)
@@ -86,7 +86,7 @@ $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
-      // console.log(res.pins[0])
+      // console.log('hello', res)
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
@@ -97,15 +97,12 @@ $('#wrapper').on('click', '.box', function () {
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
     $('#modal-comments').empty();
-    if (res.comments.length !== 0) {
+    if (res.comments.length > 0) {
       $('#modal-comments').empty();
       for (const comment of res.comments) {
         const newComment = createCommentElement(comment);
         $('#modal-comments').prepend(newComment);
       }
-    } else {
-      const noComment = '<div>No Comments!</div>'
-      $('#modal-comments').prepend(noComment)
     }
   })
 })
@@ -119,10 +116,17 @@ $('#submit-button').on('click', () => {
   })
 })
 
+
 //Like and log to db when like button is clicked
-const likePin = async function(pinId) {
-  $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
-}
+$('#wrapper').on('click', '.like-button', function(e) {
+  const box = $(this).closest('.box');
+  const id = box.attr('data-id');
+
+   $.ajax({method: 'get', url: `/api/likes/${id}`, dataType: 'JSON'})
+    .then(({ likes }) => {
+      box.find('.likes-count').text(`${likes} Likes`);
+    })
+})
 
 //Rate and log to db when like button is clicked
 $('.star__radio').on('click', (event) => {

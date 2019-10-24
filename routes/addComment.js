@@ -20,6 +20,7 @@ module.exports = (db) => {
 
   router.post("/:id", (req, res) => {
     const values = [req.session.user_id, req.params.id, req.body.text];
+    console.log('values', values);
     addCommentQuery(values)
       .then(getCommentQuery(values)
         .then(data => {
