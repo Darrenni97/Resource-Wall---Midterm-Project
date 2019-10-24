@@ -15,7 +15,7 @@ const getLikedPins = function() {
 
 // Render pins to the home page
 const createPinElement = function(pinObject) {
-  console.log(pinObject)
+  // console.log(pinObject)
   let htmlFirst =  `<div class='box' data-id="${pinObject.id}">
   <div id="image-box">
     <a href='${pinObject.resource_url}' target="_blank" ><img id="pin-image" src="${pinObject.photo_url}"/></a>
@@ -86,7 +86,7 @@ $('#wrapper').on('click', '.box', function () {
   const id = $(this).attr('data-id')
   $.ajax({method: 'GET', url: `/api/preview-pins/${id}`, dataType: 'JSON'})
     .then(res => {
-      // console.log(res.pins[0])
+      // console.log('hello', res)
       document.getElementById('modal-title').textContent = `${res.pins[0].title}`
       document.getElementById('modal-body').textContent = `${res.pins[0].description}`
       document.getElementById('modal-img').src = `${res.pins[0].photo_url}`
@@ -97,15 +97,12 @@ $('#wrapper').on('click', '.box', function () {
   $.ajax({method: 'GET', url: `/api/comments/${id}`, dataType: 'JSON'})
   .then(res => {
     $('#modal-comments').empty();
-    if (res.comments.length !== 0) {
+    if (res.comments.length > 0) {
       $('#modal-comments').empty();
       for (const comment of res.comments) {
         const newComment = createCommentElement(comment);
         $('#modal-comments').prepend(newComment);
       }
-    } else {
-      const noComment = '<div>No Comments!</div>'
-      $('#modal-comments').prepend(noComment)
     }
   })
 })
