@@ -124,11 +124,11 @@ const likePin = async function(pinId) {
   $.ajax({method: 'GET', url: `/api/likes/${pinId}`, dataType: 'JSON'})
 }
 
-$('.star__radio').on('click', () => {
-  const rating = $('.star__radio').attr('id')
+//Rate and log to db when like button is clicked
+$('.star__radio').on('click', (event) => {
+  const rating = $(event.target).attr('data-id')
+  const id = $('#submit-button').attr('data-id')
   console.log(rating)
-  console.log('hello')
-console.log($('data-id'))
-  // $.ajax({method: 'GET', url: `/api/rating/${pinId}`, dataType: 'JSON'})
-}
-)
+  console.log(id)
+  $.ajax({method: 'POST', url: `/api/rating/${id}`, dataType: 'JSON', data: {rating: rating}})
+})
