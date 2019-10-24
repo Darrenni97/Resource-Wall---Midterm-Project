@@ -11,7 +11,7 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require('cookie-session')
 const bcrypt = require('bcrypt');
-const { FUNCTIONS } = require('./helpers');
+const { setCurrentUser, findUserByEmail, login } = require('./helpers');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -67,27 +67,6 @@ app.use("/api/rating", ratingRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
-
-// We need this to fetch the user from the database using the COOKIE ID!!!!
-async function setCurrentUser(req, res) {
-  const user_id = req.session["user_id"];
-    try {
-      const query = await db.query(`
-      SELECT users.*
-      FROM users
-      WHERE id = $1
-      `,
-      [`${user_id}`]
-    )
-    const user = query.rows[0];
-    return user;
-
-    }
-    catch(e) {
-      console.log('error in setCurrentUser', e);
-    }
-}
-
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
@@ -121,28 +100,6 @@ app.get('/update', async function (req, res) {
   const current_user = await setCurrentUser(req, res);
   res.render('update', { current_user });
 });
-
-
-const findUserByEmail = (email) => {
-  return db.query(`
-  SELECT users.*
-  FROM users
-  WHERE email = $1
-  `,
-  [`${email}`])
-  .then(res => res.rows[0])
-  .catch(err => console.error('query error: user = null', err.stack));
-}
-
-const login = (email, password) => {
-  return findUserByEmail(email)
-  .then((user) => {
-    if (bcrypt.compareSync(password, user.password)) {
-      return user;
-    }
-    return null;
-  });
-}
 
 app.post('/login', (req, res) => {
   const {email, password} = req.body;
