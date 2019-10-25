@@ -9,17 +9,13 @@ This project uses HTML, CSS, SASS, JS, jQuery and AJAX for front-end, and then N
 ## Final Product
 
 Screenshot 1
-"Description" ![](ImageURLHERE)
+"Main index page with all pins" ![](https://github.com/Darrenni97/Resource-Wall---Midterm-Project/blob/master/Docs/Main%20Page%20with%20all%20Pins.png?raw=true)
 
 Screenshot 2
-"Description" ![](ImageURLHERE)
+"Main index page with single pin selected" ![](https://github.com/Darrenni97/Resource-Wall---Midterm-Project/blob/master/Docs/Main%20Page%20with%20Pin%20Selected.png?raw=true)
 
 Screenshot 3
-"Description" ![](ImageURLHERE)
-
-Screenshot 4
-"Description" ![](ImageURLHERE)
-
+"Login page for pin-mint" ![](https://github.com/Darrenni97/Resource-Wall---Midterm-Project/blob/master/Docs/Login%20Page.png?raw=true)
 
 
 
