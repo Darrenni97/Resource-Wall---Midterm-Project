@@ -6,6 +6,6 @@ CREATE TABLE pins (
   title VARCHAR(255),
   description TEXT DEFAULT 'A great resource!',
   resource_url TEXT,
-  photo_url TEXT DEFAULT 'https://i.ibb.co/QKchrpP/pinmintlogo.jpg',
+  photo_url TEXT DEFAULT 'https://i.ibb.co/T16RgFR/pinmintlogopin.png',
   tag VARCHAR (15) DEFAULT 'Miscellaneous'
 );

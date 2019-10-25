@@ -32,6 +32,7 @@ app.use(cookieSession({
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -50,6 +51,7 @@ const likeRoutes = require("./routes/likes");
 const commentsRoutes = require('./routes/comments')
 const addCommentRoutes = require('./routes/addComment')
 const ratingRoutes = require('./routes/rating')
+const extensionPins = require('./routes/extension')
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(db));
@@ -60,6 +62,7 @@ app.use("/api/likes", likeRoutes(db));
 app.use("/api/comments", commentsRoutes(db));
 app.use("/api/addComment", addCommentRoutes(db));
 app.use("/api/rating", ratingRoutes(db));
+app.use("/api/extension", extensionPins(db));
 
 // Note: mount other resources here, using the same pattern above
 
